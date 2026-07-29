@@ -1,0 +1,18 @@
+{
+  "login": "Login",
+  "register": "Register",
+  "loginTitle": "Login to System",
+  "registerTitle": "Create New Account",
+  "nationalId": "National ID",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "forgotPassword": "Forgot Password?",
+  "noAccount": "Don't have an account?",
+  "haveAccount": "Already have an account?",
+  "otpVerification": "OTP Verification",
+  "otpSent": "Verification code sent to your phone",
+  "submit": "Submit",
+  "logout": "Logout",
+  "username": "Username",
+  "mobileNumber": "Mobile Number"
+}

@@ -1,0 +1,21 @@
+{
+  "labTest": "Lab Test",
+  "requestTest": "Request Test",
+  "testName": "Test Name",
+  "testType": "Test Type",
+  "routine": "Routine",
+  "urgent": "Urgent",
+  "reason": "Reason for Test",
+  "instructions": "Lab Instructions",
+  "requestDate": "Request Date",
+  "noRequests": "No lab requests",
+  "results": "Results",
+  "pending": "Pending",
+  "completed": "Completed",
+  "cbc": "Complete Blood Count (CBC)",
+  "liverFunction": "Liver Function",
+  "kidneyFunction": "Kidney Function",
+  "bloodSugar": "Blood Sugar",
+  "thyroid": "Thyroid Function",
+  "urinalysis": "Urinalysis"
+}
