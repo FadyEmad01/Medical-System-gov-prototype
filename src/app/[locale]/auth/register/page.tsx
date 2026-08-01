@@ -28,14 +28,14 @@ export default async function RegisterPage({ params }: Props) {
 
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 z-[5] h-96 bg-linear-to-b from-transparent to-background"
+        className="absolute inset-x-0 top-0 z-[5] h-96 bg-linear-to-b from-[#03045e]/70 via-transparent to-background"
       />
 
       <div className="w-full h-full relative z-10">
         <div className="text-center text-3xl font-bold mt-30 text-white">
           {t("registerTitle")}
         </div>
-        <div className="px-20 max-w-350 mx-auto my-10">
+        <div className="md:px-20 px-4 max-w-350 mx-auto my-10">
           <RegisterForm />
         </div>
       </div>

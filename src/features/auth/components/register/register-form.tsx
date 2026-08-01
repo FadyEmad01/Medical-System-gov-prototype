@@ -505,7 +505,9 @@ export function RegisterForm() {
       <CardFooter className="justify-end">
         <Button
           onClick={handleSubmit}
-          disabled={!requiredComplete || !isValid || isSubmitting}
+          // disabled={!requiredComplete || !isValid || isSubmitting}
+          size={'lg'}
+          className="min-w-56"
         >
           {isSubmitting && <Spinner data-icon="inline-start" />}
           {t("submit")}
