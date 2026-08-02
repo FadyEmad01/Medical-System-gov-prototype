@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { verifyToken } from './test-token';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { AuthResponse } from '../types';
+import { verifyToken } from './test-token';
 
 const mockHttp = vi.hoisted(() => vi.fn());
 

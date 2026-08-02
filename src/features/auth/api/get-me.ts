@@ -1,16 +1,7 @@
 import { http } from '@/lib/http';
+import type { MeResponse } from '../types';
 
-interface MeResponse {
-  userId: number;
-  nationalId: string;
-  username: string;
-  fullName: string;
-  role: string;
-}
-
-export async function getCurrentUser(
-  token: string,
-): Promise<MeResponse> {
+export async function getCurrentUser(token: string): Promise<MeResponse> {
   return http<MeResponse>('/api/auth/me', {
     method: 'GET',
     token,

@@ -1,5 +1,5 @@
-﻿import RegisterFormUI from '@/features/test/auth/RegisterForm';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+﻿import { getTranslations, setRequestLocale } from 'next-intl/server';
+import RegisterFormUI from '@/features/test/auth/RegisterForm';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -9,7 +9,7 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations('auth');
+  const _t = await getTranslations('auth');
 
   return (
     // <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -24,6 +24,6 @@ export default async function HomePage({ params }: Props) {
     //     </div>
     //   </main>
     // </div>
-    <RegisterFormUI/>
+    <RegisterFormUI />
   );
 }

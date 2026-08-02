@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { LoginRequest, RegisterRequest, User } from './types';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { LoginRequest, RegisterRequest } from './types';
 
 // Mocks — must be at top level (before any imports) for Vitest hoisting
 const mockSetToken = vi.hoisted(() => vi.fn());

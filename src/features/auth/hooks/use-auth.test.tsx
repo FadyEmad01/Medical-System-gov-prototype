@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AuthProvider } from '../auth-context';
 import { useAuth } from './use-auth';
 
@@ -31,11 +31,16 @@ function TestComponent() {
       <div data-testid="error">{auth.error ?? 'null'}</div>
       <button
         data-testid="login-btn"
+        type="button"
         onClick={() => auth.login({ nationalId: '123', password: 'pw' })}
       >
         Login
       </button>
-      <button data-testid="logout-btn" onClick={() => auth.logout()}>
+      <button
+        data-testid="logout-btn"
+        type="button"
+        onClick={() => auth.logout()}
+      >
         Logout
       </button>
     </div>
@@ -45,7 +50,9 @@ function TestComponent() {
 describe('AuthProvider + useAuth', () => {
   it('throws error when useAuth is used outside AuthProvider', () => {
     // Suppress console error for expected throw
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleError = vi
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
 
     expect(() => render(<TestComponent />)).toThrow(
       'useAuth must be used within an <AuthProvider>',

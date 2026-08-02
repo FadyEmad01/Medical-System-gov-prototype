@@ -1,3 +1,5 @@
+import type { Gender, UserRole } from '@/lib/api/enums';
+
 export interface LoginRequest {
   nationalId: string;
   password: string;
@@ -10,7 +12,7 @@ export interface RegisterRequest {
   thirdName: string;
   fourthName: string;
   dateOfBirth: string;
-  gender: 'Male' | 'Female';
+  gender: Gender;
   mobileNumber: string;
   governorate: string;
   district: string;
@@ -24,18 +26,26 @@ export interface AuthResponse {
   token: string;
   expiresAtUtc: string;
   userId: number;
-  nationalId: string;
-  username: string;
-  fullName: string;
-  role: string;
+  nationalId: string | null;
+  username: string | null;
+  fullName: string | null;
+  role: UserRole;
+}
+
+export interface MeResponse {
+  userId: number;
+  nationalId: string | null;
+  username: string | null;
+  fullName: string | null;
+  role: UserRole;
 }
 
 export interface User {
   id: number;
-  nationalId: string;
-  username: string;
-  fullName: string;
-  role: string;
+  nationalId: string | null;
+  username: string | null;
+  fullName: string | null;
+  role: UserRole;
 }
 
 export interface AuthState {

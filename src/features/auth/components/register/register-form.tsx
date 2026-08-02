@@ -1,68 +1,67 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
-import { type AnimationEvent, useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import { type AnimationEvent, useCallback, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import {
   Field,
   FieldContent,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Spinner } from "@/components/ui/spinner";
+} from '@/components/ui/select';
+import { Spinner } from '@/components/ui/spinner';
 import {
   GENDER_OPTIONS,
   GOVERNORATE_OPTIONS,
-} from "@/features/auth/constants/register-options";
-import { useAuth } from "@/features/auth/hooks/use-auth";
-import type { RegisterRequest } from "@/features/auth/types";
+} from '@/features/auth/constants/register-options';
+import { useAuth } from '@/features/auth/hooks/use-auth';
+import type { RegisterRequest } from '@/features/auth/types';
 import {
-  REQUIRED_FIELDS,
   type RegisterFormData,
   registerFormSchema,
-} from "@/features/auth/validation/register-form";
-import { useRouter } from "@/i18n/navigation";
+} from '@/features/auth/validation/register-form';
+import { useRouter } from '@/i18n/navigation';
 
 export function RegisterForm() {
-  const t = useTranslations("auth");
+  const t = useTranslations('auth');
   const errorText = (msg?: string) =>
-    msg && t.has(msg) ? t(msg) : (msg ?? "");
+    msg && t.has(msg) ? t(msg) : (msg ?? '');
   const router = useRouter();
   const { register: authRegister } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      nationalId: "",
-      firstName: "",
-      secondName: "",
-      thirdName: "",
-      fourthName: "",
-      dateOfBirth: "",
+      nationalId: '',
+      firstName: '',
+      secondName: '',
+      thirdName: '',
+      fourthName: '',
+      dateOfBirth: '',
       gender: undefined,
-      mobileNumber: "",
-      governorate: "",
-      district: "",
-      address: "",
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      mobileNumber: '',
+      governorate: '',
+      district: '',
+      address: '',
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
   });
 
@@ -70,37 +69,27 @@ export function RegisterForm() {
     register,
     setValue,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = form;
-
-  const values = watch();
-  // Defense-in-depth: isValid already reflects the whole-form parse; requiredComplete
-  // guards the no-events-autofill / untouched-field edge cases.
-  const requiredComplete = REQUIRED_FIELDS.every((key) => {
-    const value = values[key];
-    return typeof value === "string"
-      ? value.trim() !== ""
-      : value !== undefined;
-  });
 
   // Re-validate confirmPassword whenever password changes: RHF only updates the
   // changed field's error slot, so the mismatch error would otherwise go stale.
-  const passwordValue = watch("password");
+  const passwordValue = watch('password');
   useEffect(() => {
-    if (passwordValue) form.trigger("confirmPassword");
+    if (passwordValue) form.trigger('confirmPassword');
   }, [passwordValue, form]);
 
   // Browsers/password managers can autofill inputs without firing input events,
   // so RHF's internal store never syncs. Sync the DOM value on the autofill
-  // animation start so requiredComplete/isValid can flip the submit button.
+  // animation start so the form state reflects the autofilled values.
   type AutofillFieldName = Exclude<
     keyof RegisterFormData,
-    "gender" | "governorate"
+    'gender' | 'governorate'
   >;
   const handleAutofill =
     (name: AutofillFieldName) => (event: AnimationEvent<HTMLInputElement>) => {
       const value = event.currentTarget.value;
-      if (value === "") return;
+      if (value === '') return;
       form.setValue(name, value, { shouldValidate: true });
     };
 
@@ -121,13 +110,13 @@ export function RegisterForm() {
       const result = await authRegister(payload);
 
       if (result.success) {
-        toast.success(t("registerSuccess"));
-        router.push("/");
+        toast.success(t('registerSuccess'));
+        router.push('/');
       } else {
         toast.error(result.error);
       }
     } catch (e) {
-      const msg = e instanceof Error ? e.message : t("registerError");
+      const msg = e instanceof Error ? e.message : t('registerError');
       toast.error(msg);
     } finally {
       setIsSubmitting(false);
@@ -145,14 +134,14 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel htmlFor="nationalId">
-                {t("nationalId")} <span className="text-destructive">*</span>
+                {t('nationalId')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="nationalId"
                   placeholder="XXXXXXXXXXXXXX"
-                  {...register("nationalId")}
-                  onAnimationStart={handleAutofill("nationalId")}
+                  {...register('nationalId')}
+                  onAnimationStart={handleAutofill('nationalId')}
                   aria-invalid={!!errors.nationalId || undefined}
                 />
                 {errors.nationalId?.message && (
@@ -167,13 +156,13 @@ export function RegisterForm() {
             <div className="grid grid-cols-1 gap-6 md:col-span-3 md:grid-cols-4">
               <Field data-invalid={!!errors.firstName || undefined}>
                 <FieldLabel htmlFor="firstName">
-                  {t("firstName")} <span className="text-destructive">*</span>
+                  {t('firstName')} <span className="text-destructive">*</span>
                 </FieldLabel>
                 <FieldContent>
                   <Input
                     id="firstName"
-                    {...register("firstName")}
-                    onAnimationStart={handleAutofill("firstName")}
+                    {...register('firstName')}
+                    onAnimationStart={handleAutofill('firstName')}
                     aria-invalid={!!errors.firstName || undefined}
                   />
                   {errors.firstName?.message && (
@@ -186,13 +175,13 @@ export function RegisterForm() {
 
               <Field data-invalid={!!errors.secondName || undefined}>
                 <FieldLabel htmlFor="secondName">
-                  {t("secondName")} <span className="text-destructive">*</span>
+                  {t('secondName')} <span className="text-destructive">*</span>
                 </FieldLabel>
                 <FieldContent>
                   <Input
                     id="secondName"
-                    {...register("secondName")}
-                    onAnimationStart={handleAutofill("secondName")}
+                    {...register('secondName')}
+                    onAnimationStart={handleAutofill('secondName')}
                     aria-invalid={!!errors.secondName || undefined}
                   />
                   {errors.secondName?.message && (
@@ -205,13 +194,13 @@ export function RegisterForm() {
 
               <Field data-invalid={!!errors.thirdName || undefined}>
                 <FieldLabel htmlFor="thirdName">
-                  {t("thirdName")} <span className="text-destructive">*</span>
+                  {t('thirdName')} <span className="text-destructive">*</span>
                 </FieldLabel>
                 <FieldContent>
                   <Input
                     id="thirdName"
-                    {...register("thirdName")}
-                    onAnimationStart={handleAutofill("thirdName")}
+                    {...register('thirdName')}
+                    onAnimationStart={handleAutofill('thirdName')}
                     aria-invalid={!!errors.thirdName || undefined}
                   />
                   {errors.thirdName?.message && (
@@ -224,13 +213,13 @@ export function RegisterForm() {
 
               <Field data-invalid={!!errors.fourthName || undefined}>
                 <FieldLabel htmlFor="fourthName">
-                  {t("fourthName")} <span className="text-destructive">*</span>
+                  {t('fourthName')} <span className="text-destructive">*</span>
                 </FieldLabel>
                 <FieldContent>
                   <Input
                     id="fourthName"
-                    {...register("fourthName")}
-                    onAnimationStart={handleAutofill("fourthName")}
+                    {...register('fourthName')}
+                    onAnimationStart={handleAutofill('fourthName')}
                     aria-invalid={!!errors.fourthName || undefined}
                   />
                   {errors.fourthName?.message && (
@@ -248,14 +237,14 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel htmlFor="dateOfBirth">
-                {t("dateOfBirth")} <span className="text-destructive">*</span>
+                {t('dateOfBirth')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="dateOfBirth"
                   type="date"
-                  {...register("dateOfBirth")}
-                  onAnimationStart={handleAutofill("dateOfBirth")}
+                  {...register('dateOfBirth')}
+                  onAnimationStart={handleAutofill('dateOfBirth')}
                   aria-invalid={!!errors.dateOfBirth || undefined}
                 />
                 {errors.dateOfBirth?.message && (
@@ -272,13 +261,13 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel>
-                {t("gender")} <span className="text-destructive">*</span>
+                {t('gender')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Select
-                  value={watch("gender")}
+                  value={watch('gender')}
                   onValueChange={(v) =>
-                    setValue("gender", v as "Male" | "Female", {
+                    setValue('gender', v as 'Male' | 'Female', {
                       shouldValidate: true,
                     })
                   }
@@ -287,7 +276,7 @@ export function RegisterForm() {
                     className="w-full"
                     aria-invalid={!!errors.gender || undefined}
                   >
-                    <SelectValue placeholder={t("gender")} />
+                    <SelectValue placeholder={t('gender')} />
                   </SelectTrigger>
                   <SelectContent>
                     {GENDER_OPTIONS.map((option) => (
@@ -309,14 +298,14 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel htmlFor="mobileNumber">
-                {t("mobileNumber")} <span className="text-destructive">*</span>
+                {t('mobileNumber')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="mobileNumber"
                   placeholder="01XXXXXXXXX"
-                  {...register("mobileNumber")}
-                  onAnimationStart={handleAutofill("mobileNumber")}
+                  {...register('mobileNumber')}
+                  onAnimationStart={handleAutofill('mobileNumber')}
                   aria-invalid={!!errors.mobileNumber || undefined}
                 />
                 {errors.mobileNumber?.message && (
@@ -333,20 +322,20 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel>
-                {t("governorate")} <span className="text-destructive">*</span>
+                {t('governorate')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Select
-                  value={watch("governorate")}
+                  value={watch('governorate')}
                   onValueChange={(v) =>
-                    setValue("governorate", v, { shouldValidate: true })
+                    setValue('governorate', v, { shouldValidate: true })
                   }
                 >
                   <SelectTrigger
                     className="w-full"
                     aria-invalid={!!errors.governorate || undefined}
                   >
-                    <SelectValue placeholder={t("governorate")} />
+                    <SelectValue placeholder={t('governorate')} />
                   </SelectTrigger>
                   <SelectContent>
                     {GOVERNORATE_OPTIONS.map((option) => (
@@ -370,13 +359,13 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel htmlFor="district">
-                {t("district")} <span className="text-destructive">*</span>
+                {t('district')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="district"
-                  {...register("district")}
-                  onAnimationStart={handleAutofill("district")}
+                  {...register('district')}
+                  onAnimationStart={handleAutofill('district')}
                   aria-invalid={!!errors.district || undefined}
                 />
                 {errors.district?.message && (
@@ -391,17 +380,17 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel htmlFor="email">
-                {t("email")}{" "}
+                {t('email')}{' '}
                 <span className="text-xs text-muted-foreground">
-                  ({t("optional")})
+                  ({t('optional')})
                 </span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="email"
                   type="email"
-                  {...register("email")}
-                  onAnimationStart={handleAutofill("email")}
+                  {...register('email')}
+                  onAnimationStart={handleAutofill('email')}
                   aria-invalid={!!errors.email || undefined}
                 />
                 {errors.email?.message && (
@@ -416,13 +405,13 @@ export function RegisterForm() {
               className="md:col-span-3"
             >
               <FieldLabel htmlFor="address">
-                {t("address")} <span className="text-destructive">*</span>
+                {t('address')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="address"
-                  {...register("address")}
-                  onAnimationStart={handleAutofill("address")}
+                  {...register('address')}
+                  onAnimationStart={handleAutofill('address')}
                   aria-invalid={!!errors.address || undefined}
                 />
                 {errors.address?.message && (
@@ -437,13 +426,13 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel htmlFor="username">
-                {t("username")} <span className="text-destructive">*</span>
+                {t('username')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="username"
-                  {...register("username")}
-                  onAnimationStart={handleAutofill("username")}
+                  {...register('username')}
+                  onAnimationStart={handleAutofill('username')}
                   aria-invalid={!!errors.username || undefined}
                 />
                 {errors.username?.message && (
@@ -458,14 +447,14 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel htmlFor="password">
-                {t("password")} <span className="text-destructive">*</span>
+                {t('password')} <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="password"
                   type="password"
-                  {...register("password")}
-                  onAnimationStart={handleAutofill("password")}
+                  {...register('password')}
+                  onAnimationStart={handleAutofill('password')}
                   aria-invalid={!!errors.password || undefined}
                 />
                 {errors.password?.message && (
@@ -480,15 +469,15 @@ export function RegisterForm() {
               className="md:col-span-1"
             >
               <FieldLabel htmlFor="confirmPassword">
-                {t("confirmPassword")}{" "}
+                {t('confirmPassword')}{' '}
                 <span className="text-destructive">*</span>
               </FieldLabel>
               <FieldContent>
                 <Input
                   id="confirmPassword"
                   type="password"
-                  {...register("confirmPassword")}
-                  onAnimationStart={handleAutofill("confirmPassword")}
+                  {...register('confirmPassword')}
+                  onAnimationStart={handleAutofill('confirmPassword')}
                   aria-invalid={!!errors.confirmPassword || undefined}
                 />
                 {errors.confirmPassword?.message && (
@@ -510,7 +499,7 @@ export function RegisterForm() {
           className="min-w-56"
         >
           {isSubmitting && <Spinner data-icon="inline-start" />}
-          {t("submit")}
+          {t('submit')}
         </Button>
       </CardFooter>
     </Card>

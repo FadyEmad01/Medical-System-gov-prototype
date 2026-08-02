@@ -1,5 +1,5 @@
 import { http } from '@/lib/http';
-import type { RegisterRequest, AuthResponse } from '../types';
+import type { AuthResponse, RegisterRequest } from '../types';
 
 export async function registerUser(
   data: RegisterRequest,

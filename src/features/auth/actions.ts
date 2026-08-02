@@ -1,10 +1,10 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { setToken, getToken, deleteToken } from '@/lib/server-auth';
+import { deleteToken, getToken, setToken } from '@/lib/server-auth';
+import { getCurrentUser } from './api/get-me';
 import { loginUser } from './api/login';
 import { registerUser } from './api/register';
-import { getCurrentUser } from './api/get-me';
 import type { LoginRequest, RegisterRequest, User } from './types';
 
 export type ActionResult<T> =

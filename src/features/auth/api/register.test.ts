@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { AuthResponse, RegisterRequest } from '../types';
 import { registerUser } from './register';
-import type { RegisterRequest, AuthResponse } from '../types';
 
 const mockHttp = vi.hoisted(() => vi.fn());
 
