@@ -76,7 +76,17 @@ async function proxyRequest(
     return unauthorized();
   }
 
-  const upstreamUrl = `${API_BASE_URL}/api/${path.join('/')}${req.nextUrl.search}`;
+  // Callers may send either the bare backend path ('visits/123') or the full
+  // path already carrying the API prefix ('api/visits/123'). Dropping a leading
+  // 'api' segment before the unconditional prepend keeps the upstream URL at
+  // exactly one '/api/' prefix in both cases.
+  const upstreamSegments = path[0] === 'api' ? path.slice(1) : path;
+  if (upstreamSegments.length === 0) {
+    // Empty remainder after stripping the duplicate 'api' segment
+    // (request '/api/bff/api' with path ['api']) is a client error.
+    return badRequest();
+  }
+  const upstreamUrl = `${API_BASE_URL}/api/${upstreamSegments.join('/')}${req.nextUrl.search}`;
 
   const headers = stripForbiddenHeaders(req.headers);
   headers.set('Authorization', `Bearer ${token}`);

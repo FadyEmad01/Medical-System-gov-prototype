@@ -628,8 +628,8 @@ function UploadAttachmentSection({ visitId }: { visitId: string }) {
         }
       },
       onError: (error) => {
-        if (isBffError(error) && error.status === 401) return;
         toast.dismiss(uploadingToastId);
+        if (isBffError(error) && error.status === 401) return;
         toast.error(
           error instanceof Error
             ? error.message
