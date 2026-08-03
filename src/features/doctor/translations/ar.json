@@ -63,7 +63,6 @@
     "viewPatient": "عرض المريض"
   },
   "medicalSummary": {
-    "title": "الملخص الطبي",
     "noData": "لا يوجد سجل طبي بعد",
     "lastVisit": "آخر زيارة",
     "diagnosis": "التشخيص",
@@ -72,8 +71,7 @@
     "medications": "الأدوية",
     "attachments": "المرفقات",
     "dateOfBirth": "تاريخ الميلاد",
-    "gender": "النوع",
-    "mobileNumber": "رقم الهاتف"
+    "gender": "النوع"
   },
   "visitHistory": {
     "title": "سجل الزيارات",
@@ -106,14 +104,15 @@
   },
   "visitDetail": {
     "statusLabel": "الحالة",
-    "updateStatus": "تحديث الحالة",
     "statusUpdated": "تم تحديث حالة الزيارة.",
+    "statusUpdateFailed": "تعذّر تحديث حالة الزيارة.",
     "save": "حفظ",
     "saved": "تم حفظ التغييرات.",
     "saveFailed": "تعذّر حفظ التغييرات.",
     "medications": "الأدوية",
     "addMedication": "إضافة دواء",
     "medicationAdded": "تمت إضافة الدواء.",
+    "medicationAddFailed": "تعذّر إضافة الدواء.",
     "attachments": "المرفقات",
     "upload": "رفع",
     "uploading": "جارٍ الرفع…",

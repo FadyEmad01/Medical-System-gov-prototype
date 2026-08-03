@@ -105,6 +105,13 @@ export function VisitDetailView({ visitId }: { visitId: string }) {
       onSuccess: () => {
         toast.success(t('visitDetail.statusUpdated'));
       },
+      onError: (error) => {
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : t('visitDetail.statusUpdateFailed'),
+        );
+      },
     });
   };
 
@@ -113,6 +120,13 @@ export function VisitDetailView({ visitId }: { visitId: string }) {
       onSuccess: () => {
         setCancelOpen(false);
         toast.success(t('visitDetail.statusUpdated'));
+      },
+      onError: (error) => {
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : t('visitDetail.statusUpdateFailed'),
+        );
       },
     });
   };
@@ -517,6 +531,13 @@ function AddMedicationDialog({
         toast.success(t('visitDetail.medicationAdded'));
         onOpenChange(false);
         form.reset();
+      },
+      onError: (error) => {
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : t('visitDetail.medicationAddFailed'),
+        );
       },
     });
   };

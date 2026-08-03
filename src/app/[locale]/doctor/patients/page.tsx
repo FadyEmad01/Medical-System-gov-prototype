@@ -12,7 +12,7 @@ export default async function DoctorPatientsPage({ params }: Props) {
   const t = await getTranslations('doctor');
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 px-4 lg:gap-2 lg:px-6 pt-5">
       <PageHeader
         title={t('pageTitles.patients')}
         description={t('pageSubtitles.patients')}

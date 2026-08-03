@@ -63,7 +63,6 @@
     "viewPatient": "View patient"
   },
   "medicalSummary": {
-    "title": "Medical Summary",
     "noData": "No medical record yet",
     "lastVisit": "Last visit",
     "diagnosis": "Diagnosis",
@@ -72,8 +71,7 @@
     "medications": "Medications",
     "attachments": "Attachments",
     "dateOfBirth": "Date of birth",
-    "gender": "Gender",
-    "mobileNumber": "Mobile number"
+    "gender": "Gender"
   },
   "visitHistory": {
     "title": "Visit History",
@@ -106,14 +104,15 @@
   },
   "visitDetail": {
     "statusLabel": "Status",
-    "updateStatus": "Update status",
     "statusUpdated": "Visit status updated.",
+    "statusUpdateFailed": "Failed to update the visit status.",
     "save": "Save",
     "saved": "Changes saved.",
     "saveFailed": "Failed to save changes.",
     "medications": "Medications",
     "addMedication": "Add medication",
     "medicationAdded": "Medication added.",
+    "medicationAddFailed": "Failed to add the medication.",
     "attachments": "Attachments",
     "upload": "Upload",
     "uploading": "Uploading…",
