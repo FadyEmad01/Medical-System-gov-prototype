@@ -37,6 +37,9 @@ function makeRequest(options: {
     headers: new Headers(headers),
     body,
     text: vi.fn().mockResolvedValue(bodyText),
+    arrayBuffer: vi
+      .fn()
+      .mockResolvedValue(new TextEncoder().encode(bodyText).buffer),
   } as unknown as NextRequest;
 }
 
@@ -155,6 +158,43 @@ describe('BFF proxy route', () => {
     expect(upstreamUrl).not.toContain('/api/api');
     expect(init.method).toBe('POST');
     expect(init.body).toBe(payload);
+    expect(res.status).toBe(200);
+  });
+
+  it('buffers multipart request bodies before forwarding upstream', async () => {
+    const fetchMock = stubUpstreamFetch();
+    const multipartBody =
+      '------test\r\n' +
+      'Content-Disposition: form-data; name="file"; filename="a.pdf"\r\n' +
+      'Content-Type: application/pdf\r\n' +
+      '\r\n' +
+      'x\r\n' +
+      '------test--';
+
+    const res = await POST(
+      makeRequest({
+        method: 'POST',
+        url: 'http://localhost/api/bff/api/insurance/documents/upload',
+        headers: { 'Content-Type': 'multipart/form-data; boundary=----test' },
+        body: 'placeholder',
+        bodyText: multipartBody,
+      }),
+      {
+        params: Promise.resolve({
+          path: ['api', 'insurance', 'documents', 'upload'],
+        }),
+      },
+    );
+
+    const [upstreamUrl, init] = fetchMock.mock.calls[0];
+    expect(upstreamUrl).toBe(
+      `${process.env.API_URL}/api/insurance/documents/upload`,
+    );
+    expect(init.method).toBe('POST');
+    expect(init.body).toBeInstanceOf(ArrayBuffer);
+    expect((init.headers as Headers).get('Content-Type')).toBe(
+      'multipart/form-data; boundary=----test',
+    );
     expect(res.status).toBe(200);
   });
 

@@ -96,10 +96,17 @@ async function proxyRequest(
   // client-IP fallback. Neither it nor Content-Type needs an explicit re-set —
   // both survive stripForbiddenHeaders because neither is in FORWARD_BLOCKLIST.
 
+  // Buffer non-JSON bodies before forwarding: a raw ReadableStream body makes
+  // undici demand duplex: 'half' (throwing a TypeError that surfaces as a 502),
+  // and stream bodies are sent chunked without Content-Length, which
+  // IIS-backed hosts reject. Materializing the body lets undici set
+  // Content-Length — the same pattern as req.text() for JSON above.
   let body: BodyInit | null | undefined;
   if (req.body !== null) {
     const contentType = req.headers.get('Content-Type');
-    body = isJsonContentType(contentType) ? await req.text() : req.body;
+    body = isJsonContentType(contentType)
+      ? await req.text()
+      : await req.arrayBuffer();
   }
 
   try {
