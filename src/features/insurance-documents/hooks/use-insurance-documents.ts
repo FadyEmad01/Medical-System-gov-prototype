@@ -1,7 +1,10 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import {
+  useBffError,
+  useBffQueryError,
+} from '@/features/app-shell/hooks/use-bff-error';
 import type { DocumentType } from '@/lib/api/enums';
 import { bffFetch } from '@/lib/bff';
 import type { CitizenDocumentResponse } from '../types';
@@ -24,17 +27,18 @@ export type UploadDocumentInput = {
 };
 
 export function usePatientDocuments(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: documentKeys.patient(patientId ?? 0),
     queryFn: () =>
       bffFetch<CitizenDocumentResponse[]>(
         `${INSURANCE_DOCUMENTS_PATH}/${patientId}`,
       ),
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 export function useUploadDocument(patientId: number) {

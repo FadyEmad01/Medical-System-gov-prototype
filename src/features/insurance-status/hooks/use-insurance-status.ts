@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import { useBffQueryError } from '@/features/app-shell/hooks/use-bff-error';
 import { bffFetch } from '@/lib/bff';
 import type { InsuranceStatusResponse } from '../types';
 
@@ -16,15 +16,16 @@ export const insuranceStatusKeys = {
 };
 
 export function useInsuranceStatus(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: insuranceStatusKeys.patient(patientId ?? 0),
     queryFn: () =>
       bffFetch<InsuranceStatusResponse>(
         `${INSURANCE_STATUS_PATH}/${patientId}`,
       ),
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }

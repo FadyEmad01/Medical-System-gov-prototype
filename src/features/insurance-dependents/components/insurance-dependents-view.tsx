@@ -54,20 +54,12 @@ import {
   useEndDependentRelationship,
   usePatientDependents,
 } from '../hooks/use-insurance-dependents';
-import type { AddDependentRequest, DependentResponse } from '../types';
-
-const addDependentSchema = z.object({
-  firstName: z.string().min(1),
-  secondName: z.string().min(1),
-  thirdName: z.string().min(1),
-  fourthName: z.string().min(1),
-  dateOfBirth: z.string().min(1),
-  gender: z.enum(['Male', 'Female']),
-  relationshipType: z.enum(['Spouse', 'Child', 'Parent', 'Guardian']),
-  nationalId: z.string().optional(),
-});
-
-type AddDependentFormData = z.infer<typeof addDependentSchema>;
+import {
+  type AddDependentRequest,
+  DEPENDENT_GENDERS,
+  DEPENDENT_RELATIONSHIP_TYPES,
+  type DependentResponse,
+} from '../types';
 
 export function InsuranceDependentsView() {
   const t = useTranslations('dashboard');
@@ -206,11 +198,24 @@ function AddDependentDialog({
   onOpenChange,
 }: {
   open: boolean;
-  patientId: number;
+  patientId: number | undefined;
   onOpenChange: (open: boolean) => void;
 }) {
   const t = useTranslations('dashboard');
   const addDependent = useAddDependent(patientId ?? 0);
+
+  const addDependentSchema = z.object({
+    firstName: z.string().min(1, { message: t('forms.requiredField') }),
+    secondName: z.string().min(1, { message: t('forms.requiredField') }),
+    thirdName: z.string().min(1, { message: t('forms.requiredField') }),
+    fourthName: z.string().min(1, { message: t('forms.requiredField') }),
+    dateOfBirth: z.string().min(1, { message: t('forms.requiredField') }),
+    gender: z.enum(DEPENDENT_GENDERS),
+    relationshipType: z.enum(DEPENDENT_RELATIONSHIP_TYPES),
+    nationalId: z.string().optional(),
+  });
+
+  type AddDependentFormData = z.infer<typeof addDependentSchema>;
 
   const form = useForm<AddDependentFormData>({
     resolver: zodResolver(addDependentSchema),
@@ -362,7 +367,7 @@ function AddDependentDialog({
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {(['Male', 'Female'] as const).map((gender) => (
+                        {DEPENDENT_GENDERS.map((gender) => (
                           <SelectItem key={gender} value={gender}>
                             {t(statusKey('gender', gender))}
                           </SelectItem>
@@ -388,9 +393,7 @@ function AddDependentDialog({
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {(
-                          ['Spouse', 'Child', 'Parent', 'Guardian'] as const
-                        ).map((relationship) => (
+                        {DEPENDENT_RELATIONSHIP_TYPES.map((relationship) => (
                           <SelectItem key={relationship} value={relationship}>
                             {t(statusKey('relationship', relationship))}
                           </SelectItem>
@@ -454,7 +457,7 @@ function EndRelationshipDialog({
   onClose,
 }: {
   dependent: DependentResponse | null;
-  patientId: number;
+  patientId: number | undefined;
   onClose: () => void;
 }) {
   const t = useTranslations('dashboard');

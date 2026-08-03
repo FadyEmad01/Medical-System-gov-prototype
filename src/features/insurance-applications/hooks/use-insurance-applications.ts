@@ -6,7 +6,10 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import {
+  useBffError,
+  useBffQueryError,
+} from '@/features/app-shell/hooks/use-bff-error';
 import { bffFetch } from '@/lib/bff';
 import type { ApplicationDetailResponse, ApplicationResponse } from '../types';
 
@@ -29,31 +32,33 @@ export const applicationKeys = {
 };
 
 export function usePatientApplications(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: applicationKeys.patient(patientId ?? 0),
     queryFn: () =>
       bffFetch<ApplicationResponse[]>(
         `${INSURANCE_APPLICATIONS_PATH}/${patientId}`,
       ),
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 export function useApplicationDetail(applicationId: string | null) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: applicationKeys.detail(applicationId ?? ''),
     queryFn: () =>
       bffFetch<ApplicationDetailResponse>(
         `${INSURANCE_APPLICATIONS_PATH}/detail/${applicationId}`,
       ),
     enabled: applicationId !== null,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 function useApplicationMutation(

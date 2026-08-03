@@ -39,10 +39,7 @@ function buildUrl(path: string, query?: QueryParams): string {
   return queryString === '' ? baseUrl : `${baseUrl}?${queryString}`;
 }
 
-function resolveBody(
-  body: unknown,
-  headers: Headers,
-): BodyInit | undefined {
+function resolveBody(body: unknown, headers: Headers): BodyInit | undefined {
   if (body === undefined || body === null) {
     return undefined;
   }
@@ -62,7 +59,10 @@ function resolveBody(
     body instanceof ArrayBuffer ||
     ArrayBuffer.isView(body)
   ) {
-    return body;
+    // ArrayBuffer.isView narrows to ArrayBufferView<ArrayBufferLike>, which
+    // the DOM's BodyInit does not accept (TS 5.7+); every view over a shared
+    // buffer is still a valid body, so the cast is safe.
+    return body as BodyInit;
   }
 
   headers.set('Content-Type', 'application/json');

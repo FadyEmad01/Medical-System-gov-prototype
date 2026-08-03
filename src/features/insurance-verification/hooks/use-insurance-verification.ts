@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import { useBffQueryError } from '@/features/app-shell/hooks/use-bff-error';
 import { BffError, bffFetch } from '@/lib/bff';
 import type { InsuranceVerificationResponse } from '../types';
 
@@ -36,25 +36,27 @@ async function fetchVerification(path: string): Promise<VerificationResult> {
 }
 
 export function useLatestVerification(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: verificationKeys.latest(patientId ?? 0),
     queryFn: () =>
       fetchVerification(`${INSURANCE_VERIFICATION_PATH}/${patientId}/latest`),
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 export function useCurrentVerification(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: verificationKeys.current(patientId ?? 0),
     queryFn: () =>
       fetchVerification(`${INSURANCE_VERIFICATION_PATH}/current/${patientId}`),
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }

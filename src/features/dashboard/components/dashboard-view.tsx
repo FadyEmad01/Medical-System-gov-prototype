@@ -68,7 +68,11 @@ export function DashboardView() {
   );
 }
 
-function StatusSummarySection({ patientId }: { patientId: number }) {
+function StatusSummarySection({
+  patientId,
+}: {
+  patientId: number | undefined;
+}) {
   const t = useTranslations('dashboard');
   const statusQuery = useInsuranceStatus(patientId);
 
@@ -138,7 +142,7 @@ function SummaryMetric({
   );
 }
 
-function CurrentCardSection({ patientId }: { patientId: number }) {
+function CurrentCardSection({ patientId }: { patientId: number | undefined }) {
   const t = useTranslations('dashboard');
   const locale = useLocale();
   const currentCardQuery = useCurrentCard(patientId);
@@ -189,7 +193,11 @@ function CurrentCardSection({ patientId }: { patientId: number }) {
   );
 }
 
-function LatestVerificationSection({ patientId }: { patientId: number }) {
+function LatestVerificationSection({
+  patientId,
+}: {
+  patientId: number | undefined;
+}) {
   const t = useTranslations('dashboard');
   const locale = useLocale();
   const verificationQuery = useLatestVerification(patientId);
@@ -253,7 +261,7 @@ function MetricLine({ label, value }: { label: string; value: string }) {
   );
 }
 
-function RecentVisitsSection({ patientId }: { patientId: number }) {
+function RecentVisitsSection({ patientId }: { patientId: number | undefined }) {
   const t = useTranslations('dashboard');
   const locale = useLocale();
   const visitsQuery = usePatientVisits(patientId);

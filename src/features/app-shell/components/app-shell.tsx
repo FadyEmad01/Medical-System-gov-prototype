@@ -20,6 +20,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { useDirection } from '@/components/ui/direction';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -95,6 +96,7 @@ function AppShellLayout({ allowedRole, children }: AppShellProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { isMobile } = useSidebar();
+  const dir = useDirection();
   const { user, logout } = useAuth();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -136,7 +138,11 @@ function AppShellLayout({ allowedRole, children }: AppShellProps) {
 
   return (
     <>
-      <Sidebar collapsible="offcanvas">
+      <Sidebar
+        collapsible="offcanvas"
+        dir={dir}
+        side={dir === 'ltr' ? 'left' : 'right'}
+      >
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>

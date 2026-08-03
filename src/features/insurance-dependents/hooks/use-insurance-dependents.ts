@@ -1,7 +1,10 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import {
+  useBffError,
+  useBffQueryError,
+} from '@/features/app-shell/hooks/use-bff-error';
 import { bffFetch } from '@/lib/bff';
 import type { AddDependentRequest, DependentResponse } from '../types';
 
@@ -16,17 +19,18 @@ export const dependentKeys = {
 };
 
 export function usePatientDependents(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: dependentKeys.patient(patientId ?? 0),
     queryFn: () =>
       bffFetch<DependentResponse[]>(
         `${INSURANCE_DEPENDENTS_PATH}/${patientId}`,
       ),
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 export function useAddDependent(patientId: number) {

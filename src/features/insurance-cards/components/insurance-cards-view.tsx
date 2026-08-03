@@ -58,7 +58,11 @@ import {
   useRotateCardToken,
   useSuspendCard,
 } from '../hooks/use-insurance-cards';
-import type { CardDetailResponse, CardResponse } from '../types';
+import {
+  CARD_LOSS_REASONS,
+  type CardDetailResponse,
+  type CardResponse,
+} from '../types';
 
 export function InsuranceCardsView() {
   const t = useTranslations('dashboard');
@@ -299,15 +303,15 @@ function CardActionMenu({
   patientId,
 }: {
   card: CardResponse;
-  patientId: number;
+  patientId: number | undefined;
 }) {
   const t = useTranslations('dashboard');
-  const suspend = useSuspendCard(patientId);
-  const reactivate = useReactivateCard(patientId);
-  const revoke = useRevokeCard(patientId);
-  const renew = useRenewCard(patientId);
-  const replace = useReplaceCard(patientId);
-  const rotateToken = useRotateCardToken(patientId);
+  const suspend = useSuspendCard(patientId ?? 0);
+  const reactivate = useReactivateCard(patientId ?? 0);
+  const revoke = useRevokeCard(patientId ?? 0);
+  const renew = useRenewCard(patientId ?? 0);
+  const replace = useReplaceCard(patientId ?? 0);
+  const rotateToken = useRotateCardToken(patientId ?? 0);
   const [pendingAction, setPendingAction] = useState<CardAction | null>(null);
 
   const availableActions = getCardActions(card.status);
@@ -436,13 +440,11 @@ function CardActionDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {(['Lost', 'Damaged', 'Stolen', 'Other'] as const).map(
-                  (reason) => (
-                    <SelectItem key={reason} value={reason}>
-                      {t(statusKey('replacementReason', reason))}
-                    </SelectItem>
-                  ),
-                )}
+                {CARD_LOSS_REASONS.map((reason) => (
+                  <SelectItem key={reason} value={reason}>
+                    {t(statusKey('replacementReason', reason))}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

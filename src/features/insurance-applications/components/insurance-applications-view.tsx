@@ -258,7 +258,7 @@ function ApplicationConfirmDialog({
     application: ApplicationResponse;
     action: ApplicationAction;
   } | null;
-  patientId: number;
+  patientId: number | undefined;
   onClose: () => void;
 }) {
   const t = useTranslations('dashboard');

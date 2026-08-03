@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAuth } from '@/features/auth/hooks/use-auth';
 import { useRouter } from '@/i18n/navigation';
 import { BffError } from '@/lib/bff';
@@ -22,14 +22,29 @@ export function useBffError() {
   const handleError = useCallback(
     (error: unknown) => {
       if (error instanceof BffError && error.status === 401) {
-        void logout().then(() => {
-          router.push('/auth/login');
-          router.refresh();
-        });
+        void logout()
+          .then(() => {
+            router.push('/auth/login');
+            router.refresh();
+          })
+          .catch(() => router.push('/auth/login'));
       }
     },
     [logout, router],
   );
 
   return handleError;
+}
+
+// TanStack Query v5.62 removed onError from useQuery options, so query hooks
+// subscribe to the returned state instead: whenever the query fails, the same
+// 401 handling above runs. Mutations keep passing onError to useMutation.
+export function useBffQueryError(query: { isError: boolean; error: unknown }) {
+  const handleError = useBffError();
+
+  useEffect(() => {
+    if (query.isError) {
+      handleError(query.error);
+    }
+  }, [query.isError, query.error, handleError]);
 }

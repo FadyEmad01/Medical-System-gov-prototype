@@ -37,6 +37,9 @@
       "actionFailed": "The action failed. Please try again."
     }
   },
+  "forms": {
+    "requiredField": "This field is required."
+  },
   "dashboard": {
     "greeting": "Welcome back",
     "subtitle": "Here is a snapshot of your coverage.",

@@ -6,7 +6,10 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import {
+  useBffError,
+  useBffQueryError,
+} from '@/features/app-shell/hooks/use-bff-error';
 import { BffError, bffFetch } from '@/lib/bff';
 import type {
   CardDetailResponse,
@@ -37,23 +40,22 @@ function invalidateCardQueries(
 }
 
 export function usePatientCards(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: cardKeys.patient(patientId ?? 0),
     queryFn: () =>
       bffFetch<CardResponse[]>(`${INSURANCE_CARDS_PATH}/${patientId}`),
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 // A 404 means the patient has no current card — a state (rendered as an empty
 // section), not an error.
 export function useCurrentCard(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: cardKeys.current(patientId ?? 0),
     queryFn: async () => {
       try {
@@ -68,20 +70,24 @@ export function useCurrentCard(patientId: number | undefined) {
       }
     },
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 export function useCardDetail(cardId: string | null) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: cardKeys.detail(cardId ?? ''),
     queryFn: () =>
       bffFetch<CardDetailResponse>(`${INSURANCE_CARDS_PATH}/detail/${cardId}`),
     enabled: cardId !== null,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 type CardActionInput = { cardId: string } & Partial<

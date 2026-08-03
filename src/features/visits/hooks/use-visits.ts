@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import { useBffQueryError } from '@/features/app-shell/hooks/use-bff-error';
 import { bffFetch } from '@/lib/bff';
 import type { VisitResponse } from '../types';
 
@@ -18,24 +18,26 @@ export const visitsKeys = {
 };
 
 export function usePatientVisits(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: visitsKeys.patient(patientId ?? 0),
     queryFn: () =>
       bffFetch<VisitResponse[]>(`${PATIENT_VISITS_PATH}/${patientId}/visits`),
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 export function useVisit(visitId: string | null) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: visitsKeys.detail(visitId ?? ''),
     queryFn: () => bffFetch<VisitResponse>(`${VISITS_PATH}/${visitId}`),
     enabled: visitId !== null,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }

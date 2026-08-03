@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale, useTranslations } from 'next-intl';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -107,9 +107,14 @@ export function ProfileView() {
     formState: { errors, isDirty },
   } = form;
 
-  // Prefill the editable fields once the profile arrives.
+  // Prefill the editable fields once the profile arrives. The guard runs only
+  // once so a background profile refetch (e.g. refetchOnWindowFocus) never
+  // discards typed-but-unsaved input.
+  const initialized = useRef(false);
+
   useEffect(() => {
-    if (!profile) return;
+    if (!profile || initialized.current) return;
+    initialized.current = true;
     form.reset({
       occupation: profile.occupation ?? '',
       maritalStatus: profile.maritalStatus ?? '',
@@ -147,7 +152,7 @@ export function ProfileView() {
     );
   }
 
-  if (patientId === undefined || profile === null) {
+  if (patientId === undefined || profile === undefined) {
     return (
       <Card>
         <CardContent className="py-10">

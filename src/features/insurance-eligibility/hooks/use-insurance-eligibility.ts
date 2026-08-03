@@ -1,7 +1,10 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import {
+  useBffError,
+  useBffQueryError,
+} from '@/features/app-shell/hooks/use-bff-error';
 import { BffError, bffFetch } from '@/lib/bff';
 import type {
   CheckEligibilityRequest,
@@ -25,9 +28,7 @@ export type EligibilityResult =
   | { neverChecked: false; data: InsuranceEligibilityResponse };
 
 export function useEligibility(patientId: number | undefined) {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: eligibilityKeys.patient(patientId ?? 0),
     queryFn: async () => {
       try {
@@ -43,8 +44,11 @@ export function useEligibility(patientId: number | undefined) {
       }
     },
     enabled: patientId !== undefined,
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 export function useCheckEligibility(patientId: number) {

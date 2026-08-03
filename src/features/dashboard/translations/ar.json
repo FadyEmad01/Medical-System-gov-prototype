@@ -37,6 +37,9 @@
       "actionFailed": "فشل الإجراء. حاول مرة أخرى."
     }
   },
+  "forms": {
+    "requiredField": "هذا الحقل مطلوب."
+  },
   "dashboard": {
     "greeting": "مرحبًا بعودتك",
     "subtitle": "إليك نظرة سريعة على تغطيتك.",

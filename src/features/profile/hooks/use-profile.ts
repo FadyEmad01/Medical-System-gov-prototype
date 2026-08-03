@@ -1,7 +1,10 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useBffError } from '@/features/app-shell/hooks/use-bff-error';
+import {
+  useBffError,
+  useBffQueryError,
+} from '@/features/app-shell/hooks/use-bff-error';
 import { bffFetch } from '@/lib/bff';
 import type { ProfileResponse, UpdateProfileRequest } from '../types';
 
@@ -14,13 +17,14 @@ export const profileKeys = {
 };
 
 export function useProfile() {
-  const handleError = useBffError();
-
-  return useQuery({
+  const query = useQuery({
     queryKey: profileKeys.all,
     queryFn: () => bffFetch<ProfileResponse>(PROFILE_PATH),
-    onError: handleError,
   });
+
+  useBffQueryError(query);
+
+  return query;
 }
 
 export function useUpdateProfile() {

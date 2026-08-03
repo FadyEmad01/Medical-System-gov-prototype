@@ -4,6 +4,15 @@ import type {
   ReplacementReason,
 } from '@/lib/api/enums';
 
+// Single source of truth for the card loss/replacement reasons offered in the
+// UI. Keep in sync with the ReplacementReason enum.
+export const CARD_LOSS_REASONS = [
+  'Lost',
+  'Damaged',
+  'Stolen',
+  'Other',
+] as const satisfies readonly ReplacementReason[];
+
 export interface CardResponse {
   cardNumber: string | null;
   id: string;

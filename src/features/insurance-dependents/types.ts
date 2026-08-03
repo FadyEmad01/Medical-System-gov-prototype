@@ -4,6 +4,20 @@ import type {
   RelationshipType,
 } from '@/lib/api/enums';
 
+// Single source of truth for the dependent form's selectable values. Keep in
+// sync with the Gender / RelationshipType enums.
+export const DEPENDENT_GENDERS = [
+  'Male',
+  'Female',
+] as const satisfies readonly Gender[];
+
+export const DEPENDENT_RELATIONSHIP_TYPES = [
+  'Spouse',
+  'Child',
+  'Parent',
+  'Guardian',
+] as const satisfies readonly RelationshipType[];
+
 export interface AddDependentRequest {
   firstName: string;
   secondName: string;

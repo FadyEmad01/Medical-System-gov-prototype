@@ -47,29 +47,11 @@ import {
 import { usePatientId } from '@/features/dashboard/hooks/use-patient-id';
 import { statusKey } from '@/features/dashboard/lib/enum-labels';
 import { formatDate } from '@/features/dashboard/lib/format';
-import type { DocumentType } from '@/lib/api/enums';
 import {
   usePatientDocuments,
   useUploadDocument,
 } from '../hooks/use-insurance-documents';
-import type { CitizenDocumentResponse } from '../types';
-
-const uploadDocumentSchema = z.object({
-  documentType: z.enum([
-    'NationalId',
-    'BirthCertificate',
-    'MarriageCertificate',
-    'EmploymentLetter',
-    'DisabilityCertificate',
-    'DeathCertificate',
-    'GuardianAuthorization',
-    'FamilyRegistration',
-  ]),
-  documentNumber: z.string().optional(),
-  expiresAt: z.string().optional(),
-});
-
-type UploadDocumentFormData = z.infer<typeof uploadDocumentSchema>;
+import { type CitizenDocumentResponse, DOCUMENT_TYPES } from '../types';
 
 export function InsuranceDocumentsView() {
   const t = useTranslations('dashboard');
@@ -224,12 +206,22 @@ function UploadDocumentDialog({
   onOpenChange,
 }: {
   open: boolean;
-  patientId: number;
+  patientId: number | undefined;
   onOpenChange: (open: boolean) => void;
 }) {
   const t = useTranslations('dashboard');
   const uploadDocument = useUploadDocument(patientId ?? 0);
   const [file, setFile] = useState<File | null>(null);
+
+  const uploadDocumentSchema = z.object({
+    documentType: z.enum(DOCUMENT_TYPES, {
+      message: t('forms.requiredField'),
+    }),
+    documentNumber: z.string().optional(),
+    expiresAt: z.string().optional(),
+  });
+
+  type UploadDocumentFormData = z.infer<typeof uploadDocumentSchema>;
 
   const form = useForm<UploadDocumentFormData>({
     resolver: zodResolver(uploadDocumentSchema),
@@ -250,7 +242,7 @@ function UploadDocumentDialog({
 
     uploadDocument.mutate(
       {
-        documentType: data.documentType as DocumentType,
+        documentType: data.documentType,
         file,
         documentNumber: data.documentNumber || undefined,
         expiresAt: data.expiresAt || undefined,
@@ -299,18 +291,7 @@ function UploadDocumentDialog({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {(
-                        [
-                          'NationalId',
-                          'BirthCertificate',
-                          'MarriageCertificate',
-                          'EmploymentLetter',
-                          'DisabilityCertificate',
-                          'DeathCertificate',
-                          'GuardianAuthorization',
-                          'FamilyRegistration',
-                        ] as const
-                      ).map((documentType) => (
+                      {DOCUMENT_TYPES.map((documentType) => (
                         <SelectItem key={documentType} value={documentType}>
                           {t(statusKey('documentType', documentType))}
                         </SelectItem>
