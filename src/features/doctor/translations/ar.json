@@ -1,0 +1,158 @@
+{
+  "pageTitles": {
+    "doctor": "مساحة عمل الطبيب",
+    "patients": "المرضى",
+    "patientDetail": "تفاصيل المريض",
+    "visits": "الزيارات",
+    "visitDetail": "تفاصيل الزيارة"
+  },
+  "pageSubtitles": {
+    "doctor": "أدر مرضاك وزياراتهم.",
+    "patients": "المرضى المسندون إلى رعايتك.",
+    "patientDetail": "نظرة عامة على السجل الطبي لهذا المريض.",
+    "visits": "سجّل الزيارات وتابع نتائجها.",
+    "visitDetail": "راجع سجل الزيارة ونتائجها."
+  },
+  "visitsPage": {
+    "emptyDescription": "سجّل الزيارات من صفحة تفاصيل المريض لتظهر هنا.",
+    "backToWorkspace": "العودة إلى مساحة العمل"
+  },
+  "common": {
+    "loading": "جارٍ التحميل",
+    "retry": "إعادة المحاولة",
+    "cancel": "إلغاء",
+    "unknown": "غير معروف",
+    "errors": {
+      "loadFailed": "حدث خطأ أثناء تحميل هذه البيانات."
+    }
+  },
+  "forms": {
+    "requiredField": "هذا الحقل مطلوب.",
+    "nationalIdInvalid": "أدخل رقمًا قوميًا صحيحًا (14 رقمًا)."
+  },
+  "assignedPatients": {
+    "title": "المرضى المسندون",
+    "emptyTitle": "لا يوجد مرضى مسندون",
+    "emptyDescription": "سيظهر المرضى هنا بمجرد إسنادهم إليك.",
+    "searchCta": "ابحث عن مريض لإسناده إليك",
+    "unassign": "إزالة",
+    "unassignConfirm": "إزالة هذا المريض من قائمتك؟",
+    "unassignConfirmTitle": "إزالة المريض",
+    "unassigned": "تمت إزالة المريض.",
+    "forbiddenTitle": "غير مصرح",
+    "forbiddenDescription": "ليس لديك صلاحية لعرض هؤلاء المرضى.",
+    "columns": {
+      "patientId": "المعرف",
+      "fullName": "الاسم",
+      "nationalId": "الرقم القومي",
+      "mobileNumber": "الهاتف",
+      "assignedAt": "تاريخ الإسناد"
+    }
+  },
+  "patientSearch": {
+    "placeholder": "ابحث بالرقم القومي",
+    "searchButton": "بحث",
+    "nationalIdLabel": "الرقم القومي",
+    "notFoundTitle": "المريض غير موجود",
+    "notFoundDescription": "لا يوجد مريض يطابق هذا الرقم القومي.",
+    "fullName": "الاسم الكامل",
+    "nationalId": "الرقم القومي",
+    "gender": "النوع",
+    "dateOfBirth": "تاريخ الميلاد",
+    "mobileNumber": "رقم الهاتف",
+    "viewPatient": "عرض المريض"
+  },
+  "medicalSummary": {
+    "title": "الملخص الطبي",
+    "noData": "لا يوجد سجل طبي بعد",
+    "lastVisit": "آخر زيارة",
+    "diagnosis": "التشخيص",
+    "notes": "ملاحظات",
+    "requiredTests": "الفحوصات المطلوبة",
+    "medications": "الأدوية",
+    "attachments": "المرفقات",
+    "dateOfBirth": "تاريخ الميلاد",
+    "gender": "النوع",
+    "mobileNumber": "رقم الهاتف"
+  },
+  "visitHistory": {
+    "title": "سجل الزيارات",
+    "empty": "لا توجد زيارات بعد",
+    "columns": {
+      "visitDate": "التاريخ",
+      "doctor": "الطبيب",
+      "type": "النوع",
+      "diagnosis": "التشخيص"
+    }
+  },
+  "createVisit": {
+    "title": "زيارة جديدة",
+    "description": "سجّل زيارة لهذا المريض.",
+    "visitDate": "تاريخ الزيارة",
+    "visitType": "نوع الزيارة",
+    "notes": "ملاحظات",
+    "diagnosis": "التشخيص",
+    "requiredTests": "الفحوصات المطلوبة",
+    "medications": "الأدوية",
+    "addMedication": "إضافة دواء",
+    "removeMedication": "إزالة",
+    "medicineName": "الدواء",
+    "dosage": "الجرعة",
+    "frequency": "التكرار",
+    "duration": "المدة",
+    "submit": "حفظ الزيارة",
+    "success": "تم إنشاء الزيارة.",
+    "error": "تعذّر إنشاء الزيارة."
+  },
+  "visitDetail": {
+    "statusLabel": "الحالة",
+    "updateStatus": "تحديث الحالة",
+    "statusUpdated": "تم تحديث حالة الزيارة.",
+    "save": "حفظ",
+    "saved": "تم حفظ التغييرات.",
+    "saveFailed": "تعذّر حفظ التغييرات.",
+    "medications": "الأدوية",
+    "addMedication": "إضافة دواء",
+    "medicationAdded": "تمت إضافة الدواء.",
+    "attachments": "المرفقات",
+    "upload": "رفع",
+    "uploading": "جارٍ الرفع…",
+    "uploaded": "تم رفع الملف.",
+    "uploadFailed": "تعذّر رفع الملف.",
+    "noAttachments": "لا توجد مرفقات",
+    "openFile": "فتح الملف",
+    "uploadSizeError": "حجم الملف كبير جدًا بحيث لا يمكن رفعه.",
+    "visitDate": "تاريخ الزيارة",
+    "visitType": "نوع الزيارة",
+    "edit": "تعديل",
+    "editTitle": "تعديل الزيارة",
+    "diagnosis": "التشخيص",
+    "notes": "ملاحظات",
+    "requiredTests": "الفحوصات المطلوبة",
+    "start": "بدء الزيارة",
+    "complete": "إكمال",
+    "cancel": "إلغاء الزيارة",
+    "cancelConfirmTitle": "إلغاء الزيارة",
+    "cancelConfirmDescription": "إلغاء هذه الزيارة؟ لا يمكن التراجع عن هذا.",
+    "noMedications": "لا توجد أدوية بعد",
+    "notFoundTitle": "الزيارة غير موجودة",
+    "notFoundDescription": "لا توجد زيارة تطابق هذا المعرّف."
+  },
+  "statuses": {
+    "visit": {
+      "scheduled": "مجدولة",
+      "inProgress": "قيد التنفيذ",
+      "completed": "مكتملة",
+      "cancelled": "ملغاة"
+    },
+    "visitType": {
+      "consultation": "استشارة",
+      "followUp": "متابعة",
+      "emergency": "طوارئ"
+    },
+    "gender": {
+      "male": "ذكر",
+      "female": "أنثى"
+    }
+  }
+}

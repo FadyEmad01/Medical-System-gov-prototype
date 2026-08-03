@@ -17,6 +17,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     radiology,
     appShell,
     dashboard,
+    doctor,
   ] = await Promise.all([
     import(`../features/auth/translations/${locale}.json`).then(
       (m) => m.default,
@@ -42,6 +43,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
     import(`../features/dashboard/translations/${locale}.json`).then(
       (m) => m.default,
     ),
+    import(`../features/doctor/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
   ]);
 
   return {
@@ -55,6 +59,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       radiology,
       'app-shell': appShell,
       dashboard,
+      doctor,
     },
   };
 });

@@ -1,0 +1,158 @@
+{
+  "pageTitles": {
+    "doctor": "Doctor Workspace",
+    "patients": "Patients",
+    "patientDetail": "Patient Details",
+    "visits": "Visits",
+    "visitDetail": "Visit Details"
+  },
+  "pageSubtitles": {
+    "doctor": "Manage your patients and their visits.",
+    "patients": "Patients assigned to your care.",
+    "patientDetail": "An overview of this patient's medical record.",
+    "visits": "Record and follow up on your patients' visits.",
+    "visitDetail": "Review the visit record and its outcomes."
+  },
+  "visitsPage": {
+    "emptyDescription": "Record visits from a patient's details page to see them here.",
+    "backToWorkspace": "Back to workspace"
+  },
+  "common": {
+    "loading": "Loading",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "unknown": "Unknown",
+    "errors": {
+      "loadFailed": "Something went wrong while loading this data."
+    }
+  },
+  "forms": {
+    "requiredField": "This field is required.",
+    "nationalIdInvalid": "Enter a valid National ID (14 digits)."
+  },
+  "assignedPatients": {
+    "title": "Assigned Patients",
+    "emptyTitle": "No assigned patients",
+    "emptyDescription": "Patients will appear here once they are assigned to you.",
+    "searchCta": "Search for a patient to assign",
+    "unassign": "Remove",
+    "unassignConfirm": "Remove this patient from your list?",
+    "unassignConfirmTitle": "Remove patient",
+    "unassigned": "Patient removed.",
+    "forbiddenTitle": "Not authorized",
+    "forbiddenDescription": "You do not have permission to view these patients.",
+    "columns": {
+      "patientId": "ID",
+      "fullName": "Name",
+      "nationalId": "National ID",
+      "mobileNumber": "Mobile",
+      "assignedAt": "Assigned on"
+    }
+  },
+  "patientSearch": {
+    "placeholder": "Search by National ID",
+    "searchButton": "Search",
+    "nationalIdLabel": "National ID",
+    "notFoundTitle": "Patient not found",
+    "notFoundDescription": "No patient matches this National ID.",
+    "fullName": "Full name",
+    "nationalId": "National ID",
+    "gender": "Gender",
+    "dateOfBirth": "Date of birth",
+    "mobileNumber": "Mobile number",
+    "viewPatient": "View patient"
+  },
+  "medicalSummary": {
+    "title": "Medical Summary",
+    "noData": "No medical record yet",
+    "lastVisit": "Last visit",
+    "diagnosis": "Diagnosis",
+    "notes": "Notes",
+    "requiredTests": "Required tests",
+    "medications": "Medications",
+    "attachments": "Attachments",
+    "dateOfBirth": "Date of birth",
+    "gender": "Gender",
+    "mobileNumber": "Mobile number"
+  },
+  "visitHistory": {
+    "title": "Visit History",
+    "empty": "No visits yet",
+    "columns": {
+      "visitDate": "Date",
+      "doctor": "Doctor",
+      "type": "Type",
+      "diagnosis": "Diagnosis"
+    }
+  },
+  "createVisit": {
+    "title": "New Visit",
+    "description": "Record a visit for this patient.",
+    "visitDate": "Visit date",
+    "visitType": "Visit type",
+    "notes": "Notes",
+    "diagnosis": "Diagnosis",
+    "requiredTests": "Required tests",
+    "medications": "Medications",
+    "addMedication": "Add medication",
+    "removeMedication": "Remove",
+    "medicineName": "Medicine",
+    "dosage": "Dosage",
+    "frequency": "Frequency",
+    "duration": "Duration",
+    "submit": "Save visit",
+    "success": "Visit created.",
+    "error": "Failed to create the visit."
+  },
+  "visitDetail": {
+    "statusLabel": "Status",
+    "updateStatus": "Update status",
+    "statusUpdated": "Visit status updated.",
+    "save": "Save",
+    "saved": "Changes saved.",
+    "saveFailed": "Failed to save changes.",
+    "medications": "Medications",
+    "addMedication": "Add medication",
+    "medicationAdded": "Medication added.",
+    "attachments": "Attachments",
+    "upload": "Upload",
+    "uploading": "Uploading…",
+    "uploaded": "File uploaded.",
+    "uploadFailed": "Failed to upload the file.",
+    "noAttachments": "No attachments",
+    "openFile": "Open file",
+    "uploadSizeError": "The file is too large to upload.",
+    "visitDate": "Visit date",
+    "visitType": "Visit type",
+    "edit": "Edit",
+    "editTitle": "Edit visit",
+    "diagnosis": "Diagnosis",
+    "notes": "Notes",
+    "requiredTests": "Required tests",
+    "start": "Start visit",
+    "complete": "Complete",
+    "cancel": "Cancel visit",
+    "cancelConfirmTitle": "Cancel visit",
+    "cancelConfirmDescription": "Cancel this visit? This cannot be undone.",
+    "noMedications": "No medications yet",
+    "notFoundTitle": "Visit not found",
+    "notFoundDescription": "No visit matches this ID."
+  },
+  "statuses": {
+    "visit": {
+      "scheduled": "Scheduled",
+      "inProgress": "In progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "visitType": {
+      "consultation": "Consultation",
+      "followUp": "Follow-up",
+      "emergency": "Emergency"
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    }
+  }
+}

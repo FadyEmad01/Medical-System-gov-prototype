@@ -27,7 +27,10 @@ export function useBffError() {
             router.push('/auth/login');
             router.refresh();
           })
-          .catch(() => router.push('/auth/login'));
+          .catch(() => {
+            router.push('/auth/login');
+            router.refresh();
+          });
       }
     },
     [logout, router],

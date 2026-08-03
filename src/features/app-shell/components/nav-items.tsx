@@ -70,6 +70,7 @@ export const PATIENT_NAV_ITEMS: readonly AppNavItem[] = [
 
 export const DOCTOR_NAV_ITEMS: readonly AppNavItem[] = [
   { labelKey: 'nav.doctor', href: '/doctor', icon: StethoscopeIcon },
+  { labelKey: 'nav.patients', href: '/doctor/patients', icon: UsersIcon },
   { labelKey: 'nav.visits', href: '/doctor/visits', icon: ClipboardListIcon },
 ];
 

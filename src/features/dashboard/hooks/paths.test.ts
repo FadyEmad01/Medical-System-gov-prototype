@@ -19,6 +19,10 @@ const HOOK_PATHS = {
   insuranceDocuments: '/api/insurance/documents',
   insuranceEligibility: '/api/insurance/eligibility',
   insuranceVerification: '/api/insurance/verification',
+  assignments: '/api/doctors',
+  patients: '/api/patients',
+  visitAttachments: '/api/visits',
+  attachments: '/api/attachments',
 } as const;
 
 function readSource(feature: string, fileName: string): string {
@@ -55,6 +59,63 @@ describe('api path spot-check', () => {
     );
     expectPathInHook('visits', 'hooks/use-visits.ts', HOOK_PATHS.visit);
     expectPathInApi('visits', 'get-visit.ts', HOOK_PATHS.visit);
+    // use-visit-actions.ts reuses VISITS_PATH from use-visits.ts, so the
+    // verbatim path assertions target the api clients it drives.
+    for (const apiFile of [
+      'create-visit.ts',
+      'get-visit.ts',
+      'update-visit.ts',
+      'update-visit-status.ts',
+      'add-visit-medications.ts',
+    ]) {
+      expectPathInApi('visits', apiFile, HOOK_PATHS.visit);
+    }
+  });
+
+  it('assignments hooks match the api client', () => {
+    expectPathInHook(
+      'assignments',
+      'hooks/use-assignments.ts',
+      HOOK_PATHS.assignments,
+    );
+    for (const apiFile of [
+      'get-assigned-patients.ts',
+      'create-assignment.ts',
+      'delete-assignment.ts',
+    ]) {
+      expectPathInApi('assignments', apiFile, HOOK_PATHS.assignments);
+    }
+  });
+
+  it('patients hooks match the api client', () => {
+    expectPathInHook('patients', 'hooks/use-patients.ts', HOOK_PATHS.patients);
+    for (const apiFile of [
+      'search-patients.ts',
+      'get-patient-medical-summary.ts',
+      'get-patient-visit-history.ts',
+    ]) {
+      expectPathInApi('patients', apiFile, HOOK_PATHS.patients);
+    }
+  });
+
+  it('attachments hooks match the api client', () => {
+    expectPathInHook(
+      'attachments',
+      'hooks/use-attachments.ts',
+      HOOK_PATHS.visitAttachments,
+    );
+    for (const apiFile of [
+      'get-visit-attachments.ts',
+      'upload-attachment.ts',
+    ]) {
+      expectPathInApi('attachments', apiFile, HOOK_PATHS.visitAttachments);
+    }
+    expectPathInHook(
+      'attachments',
+      'hooks/use-attachments.ts',
+      HOOK_PATHS.attachments,
+    );
+    expectPathInApi('attachments', 'get-attachment.ts', HOOK_PATHS.attachments);
   });
 
   it('insurance-status hooks match the api client', () => {

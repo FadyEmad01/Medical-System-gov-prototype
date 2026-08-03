@@ -275,7 +275,7 @@ function AppShellLayout({ allowedRole, children }: AppShellProps) {
             <SidebarTrigger className="-ms-1" />
             <Separator
               orientation="vertical"
-              className="mx-2 data-[orientation=vertical]:h-4"
+              className="mx-2 data-[orientation=vertical]:h-4 my-auto"
             />
             <Breadcrumb>
               <BreadcrumbList>
