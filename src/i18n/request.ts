@@ -8,30 +8,53 @@ export default getRequestConfig(async ({ requestLocale }) => {
     ? requested
     : routing.defaultLocale;
 
-  const [auth, patients, visits, prescriptions, labRequests, radiology] =
-    await Promise.all([
-      import(`../features/auth/translations/${locale}.json`).then(
-        (m) => m.default,
-      ),
-      import(`../features/patients/translations/${locale}.json`).then(
-        (m) => m.default,
-      ),
-      import(`../features/visits/translations/${locale}.json`).then(
-        (m) => m.default,
-      ),
-      import(`../features/prescriptions/translations/${locale}.json`).then(
-        (m) => m.default,
-      ),
-      import(`../features/lab-requests/translations/${locale}.json`).then(
-        (m) => m.default,
-      ),
-      import(`../features/radiology/translations/${locale}.json`).then(
-        (m) => m.default,
-      ),
-    ]);
+  const [
+    auth,
+    patients,
+    visits,
+    prescriptions,
+    labRequests,
+    radiology,
+    appShell,
+    dashboard,
+  ] = await Promise.all([
+    import(`../features/auth/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
+    import(`../features/patients/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
+    import(`../features/visits/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
+    import(`../features/prescriptions/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
+    import(`../features/lab-requests/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
+    import(`../features/radiology/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
+    import(`../features/app-shell/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
+    import(`../features/dashboard/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
+  ]);
 
   return {
     locale,
-    messages: { auth, patients, visits, prescriptions, labRequests, radiology },
+    messages: {
+      auth,
+      patients,
+      visits,
+      prescriptions,
+      labRequests,
+      radiology,
+      'app-shell': appShell,
+      dashboard,
+    },
   };
 });

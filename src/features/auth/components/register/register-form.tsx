@@ -491,16 +491,26 @@ export function RegisterForm() {
         </FieldGroup>
       </CardContent>
 
-      <CardFooter className="justify-end">
+      <CardFooter className="flex-col items-end gap-4">
         <Button
           onClick={handleSubmit}
-          // disabled={!requiredComplete || !isValid || isSubmitting}
           size={'lg'}
           className="min-w-56"
+          disabled={isSubmitting}
         >
           {isSubmitting && <Spinner data-icon="inline-start" />}
           {t('submit')}
         </Button>
+        <p className="text-center text-sm text-muted-foreground">
+          {t('haveAccount')}{' '}
+          <button
+            type="button"
+            onClick={() => router.push('/auth/login')}
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {t('login')}
+          </button>
+        </p>
       </CardFooter>
     </Card>
   );

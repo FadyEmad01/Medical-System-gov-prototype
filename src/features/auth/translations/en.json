@@ -70,8 +70,10 @@
     "emailInvalid": "Please enter a valid email address",
     "passwordMinLength": "Password must be at least 8 characters",
     "passwordFormat": "Password must include letters, numbers, and at least one special character",
+    "passwordRequired": "Password is required",
     "confirmPasswordRequired": "Please confirm your password",
-    "passwordMismatch": "Passwords do not match"
+    "passwordMismatch": "Passwords do not match",
+    "loginFailed": "Login failed. Please try again."
   },
   "next": "Next",
   "back": "Back",
@@ -83,5 +85,6 @@
   "step3Label": "Account",
   "reviewTitle": "Review Your Information",
   "registerSuccess": "Account created successfully!",
-  "registerError": "Registration failed. Please try again."
+  "registerError": "Registration failed. Please try again.",
+  "loginSuccess": "Logged in successfully!"
 }

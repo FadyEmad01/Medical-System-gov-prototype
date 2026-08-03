@@ -70,8 +70,10 @@
     "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
     "passwordMinLength": "يجب ألا تقل كلمة المرور عن 8 أحرف",
     "passwordFormat": "يجب أن تتضمن كلمة المرور حروفاً وأرقاماً ورمزاً خاصاً واحداً على الأقل",
+    "passwordRequired": "كلمة المرور مطلوبة",
     "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
-    "passwordMismatch": "كلمتا المرور غير متطابقتين"
+    "passwordMismatch": "كلمتا المرور غير متطابقتين",
+    "loginFailed": "فشل تسجيل الدخول. حاول مرة أخرى."
   },
   "next": "التالي",
   "back": "السابق",
@@ -83,5 +85,6 @@
   "step3Label": "الحساب",
   "reviewTitle": "مراجعة معلوماتك",
   "registerSuccess": "تم إنشاء الحساب بنجاح!",
-  "registerError": "فشل إنشاء الحساب. حاول مرة أخرى"
+  "registerError": "فشل إنشاء الحساب. حاول مرة أخرى",
+  "loginSuccess": "تم تسجيل الدخول بنجاح"
 }

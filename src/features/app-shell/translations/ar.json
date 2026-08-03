@@ -1,0 +1,29 @@
+{
+  "brand": "بوابة الرعاية",
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "profile": "الملف الشخصي",
+    "visits": "الزيارات",
+    "insurance": "التأمين",
+    "insuranceStatus": "حالة التأمين",
+    "insuranceCards": "بطاقات التأمين",
+    "insuranceApplications": "الطلبات",
+    "insuranceDependents": "المُعالون",
+    "insuranceDocuments": "المستندات",
+    "insuranceEligibility": "الأهلية",
+    "doctor": "الطبيب",
+    "admin": "المشرف",
+    "audit": "سجلات التدقيق",
+    "patients": "المرضى"
+  },
+  "userMenu": {
+    "profile": "الملف الشخصي",
+    "theme": "تبديل المظهر",
+    "logout": "تسجيل الخروج",
+    "logoutError": "فشل تسجيل الخروج. حاول مرة أخرى."
+  },
+  "breadcrumb": {
+    "home": "الرئيسية"
+  },
+  "placeholder": "قريبًا"
+}

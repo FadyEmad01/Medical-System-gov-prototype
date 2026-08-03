@@ -1,0 +1,29 @@
+{
+  "brand": "Care Portal",
+  "nav": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "visits": "Visits",
+    "insurance": "Insurance",
+    "insuranceStatus": "Insurance Status",
+    "insuranceCards": "Insurance Cards",
+    "insuranceApplications": "Applications",
+    "insuranceDependents": "Dependents",
+    "insuranceDocuments": "Documents",
+    "insuranceEligibility": "Eligibility",
+    "doctor": "Doctor",
+    "admin": "Admin",
+    "audit": "Audit Logs",
+    "patients": "Patients"
+  },
+  "userMenu": {
+    "profile": "Profile",
+    "theme": "Toggle theme",
+    "logout": "Log out",
+    "logoutError": "Failed to sign out. Please try again."
+  },
+  "breadcrumb": {
+    "home": "Home"
+  },
+  "placeholder": "Coming soon"
+}

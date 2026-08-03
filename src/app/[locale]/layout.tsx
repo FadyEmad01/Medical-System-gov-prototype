@@ -2,6 +2,9 @@
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
+import { ThemeProvider } from 'next-themes';
+import { DirectionProvider } from '@/components/ui/direction';
+import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/features/auth/auth-context';
 import { routing } from '@/i18n/routing';
 import '@/styles/globals.css';
@@ -49,12 +52,23 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       dir={dir}
+      suppressHydrationWarning
       className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} ${almarai.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider messages={messages}>
-          <AuthProvider>{children}</AuthProvider>
-        </NextIntlClientProvider>
+        <DirectionProvider direction={dir}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider messages={messages}>
+              <AuthProvider>{children}</AuthProvider>
+              <Toaster />
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </DirectionProvider>
       </body>
     </html>
   );
