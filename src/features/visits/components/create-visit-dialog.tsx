@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Spinner } from '@/components/ui/spinner';
+import { isBffError } from '@/features/app-shell/hooks/use-bff-error';
 import { useAuth } from '@/features/auth/hooks/use-auth';
 import { statusKey } from '@/features/doctor/lib/enum-labels';
 import { patientsKeys } from '@/features/patients/hooks/use-patients';
@@ -113,6 +114,7 @@ export function CreateVisitDialog({
           form.reset();
         },
         onError: (error) => {
+          if (isBffError(error) && error.status === 401) return;
           toast.error(
             error instanceof Error ? error.message : t('createVisit.error'),
           );

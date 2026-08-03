@@ -33,6 +33,7 @@ import {
   ErrorState,
   LoadingRows,
 } from '@/features/app-shell/components/states';
+import { isBffError } from '@/features/app-shell/hooks/use-bff-error';
 import { ConfirmDialog } from '@/features/dashboard/components/confirm-dialog';
 import { usePatientId } from '@/features/dashboard/hooks/use-patient-id';
 import { statusKey } from '@/features/dashboard/lib/enum-labels';
@@ -99,12 +100,14 @@ export function InsuranceApplicationsView() {
   const handleCreate = () => {
     createApplication.mutate(undefined, {
       onSuccess: () => toast.success(t('insuranceApplications.createSuccess')),
-      onError: (createError) =>
+      onError: (createError) => {
+        if (isBffError(createError) && createError.status === 401) return;
         toast.error(
           createError instanceof Error
             ? createError.message
             : t('insuranceApplications.createError'),
-        ),
+        );
+      },
     });
   };
 
@@ -284,12 +287,14 @@ function ApplicationConfirmDialog({
         );
         onClose();
       },
-      onError: (error) =>
+      onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         toast.error(
           error instanceof Error
             ? error.message
             : t('common.errors.actionFailed'),
-        ),
+        );
+      },
     });
   };
 

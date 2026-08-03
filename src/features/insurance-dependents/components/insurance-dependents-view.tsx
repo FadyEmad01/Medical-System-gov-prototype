@@ -45,6 +45,7 @@ import {
   ErrorState,
   LoadingRows,
 } from '@/features/app-shell/components/states';
+import { isBffError } from '@/features/app-shell/hooks/use-bff-error';
 import { ConfirmDialog } from '@/features/dashboard/components/confirm-dialog';
 import { usePatientId } from '@/features/dashboard/hooks/use-patient-id';
 import { statusKey } from '@/features/dashboard/lib/enum-labels';
@@ -257,12 +258,14 @@ function AddDependentDialog({
         reset();
         onOpenChange(false);
       },
-      onError: (error) =>
+      onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         toast.error(
           error instanceof Error
             ? error.message
             : t('insuranceDependents.addError'),
-        ),
+        );
+      },
     });
   };
 
@@ -473,12 +476,14 @@ function EndRelationshipDialog({
         toast.success(t('insuranceDependents.endSuccess'));
         onClose();
       },
-      onError: (error) =>
+      onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         toast.error(
           error instanceof Error
             ? error.message
             : t('common.errors.actionFailed'),
-        ),
+        );
+      },
     });
   };
 

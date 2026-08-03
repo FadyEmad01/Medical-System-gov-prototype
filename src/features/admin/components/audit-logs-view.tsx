@@ -134,12 +134,12 @@ export function AuditLogsView() {
   // changes (not on every keystroke), matching applyFilter's behaviour. The
   // previous-value ref skips the initial mount, where page is already 1.
   const settledFilterSignature = [
-    debouncedAction,
-    debouncedUserId,
-    debouncedPatientId,
-    debouncedVisitId,
-    debouncedStartDate,
-    debouncedEndDate,
+    debouncedAction.trim(),
+    debouncedUserId.trim(),
+    debouncedPatientId.trim(),
+    debouncedVisitId.trim(),
+    debouncedStartDate.trim(),
+    debouncedEndDate.trim(),
   ].join('\u0000');
   const previousFilterSignatureRef = useRef(settledFilterSignature);
 

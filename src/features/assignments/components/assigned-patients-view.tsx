@@ -169,6 +169,7 @@ function UnassignPatientDialog({
         toast.success(t('assignedPatients.unassigned'));
       },
       onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         onOpenChange(false);
         toast.error(
           error instanceof Error

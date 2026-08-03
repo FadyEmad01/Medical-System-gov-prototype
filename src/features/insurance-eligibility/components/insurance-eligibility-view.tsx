@@ -17,6 +17,7 @@ import {
   ErrorState,
   LoadingRows,
 } from '@/features/app-shell/components/states';
+import { isBffError } from '@/features/app-shell/hooks/use-bff-error';
 import { usePatientId } from '@/features/dashboard/hooks/use-patient-id';
 import { statusKey } from '@/features/dashboard/lib/enum-labels';
 import { formatDateTime } from '@/features/dashboard/lib/format';
@@ -86,12 +87,14 @@ export function InsuranceEligibilityView() {
       },
       {
         onSuccess: () => toast.success(t('insuranceEligibility.checkSuccess')),
-        onError: (checkError) =>
+        onError: (checkError) => {
+          if (isBffError(checkError) && checkError.status === 401) return;
           toast.error(
             checkError instanceof Error
               ? checkError.message
               : t('insuranceEligibility.checkError'),
-          ),
+          );
+        },
       },
     );
   };

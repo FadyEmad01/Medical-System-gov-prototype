@@ -41,6 +41,7 @@ import {
   ErrorState,
   LoadingRows,
 } from '@/features/app-shell/components/states';
+import { isBffError } from '@/features/app-shell/hooks/use-bff-error';
 import { usePatientId } from '@/features/dashboard/hooks/use-patient-id';
 import { statusKey } from '@/features/dashboard/lib/enum-labels';
 import { formatDate, formatDateTime } from '@/features/dashboard/lib/format';
@@ -403,6 +404,7 @@ function CardActionDialog({
           onOpenChange(false);
         },
         onError: (error) => {
+          if (isBffError(error) && error.status === 401) return;
           toast.error(
             error instanceof Error
               ? error.message

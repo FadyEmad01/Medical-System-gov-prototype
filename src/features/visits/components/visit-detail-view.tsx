@@ -423,7 +423,8 @@ function EditVisitDialog({
           toast.success(t('visitDetail.saved'));
           onOpenChange(false);
         },
-        onError: () => {
+        onError: (error) => {
+          if (isBffError(error) && error.status === 401) return;
           toast.error(t('visitDetail.saveFailed'));
         },
       },
@@ -627,6 +628,7 @@ function UploadAttachmentSection({ visitId }: { visitId: string }) {
         }
       },
       onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         toast.dismiss(uploadingToastId);
         toast.error(
           error instanceof Error
