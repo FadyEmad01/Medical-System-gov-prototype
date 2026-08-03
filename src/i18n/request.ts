@@ -18,6 +18,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     appShell,
     dashboard,
     doctor,
+    admin,
   ] = await Promise.all([
     import(`../features/auth/translations/${locale}.json`).then(
       (m) => m.default,
@@ -46,6 +47,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
     import(`../features/doctor/translations/${locale}.json`).then(
       (m) => m.default,
     ),
+    import(`../features/admin/translations/${locale}.json`).then(
+      (m) => m.default,
+    ),
   ]);
 
   return {
@@ -60,6 +64,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       'app-shell': appShell,
       dashboard,
       doctor,
+      admin,
     },
   };
 });

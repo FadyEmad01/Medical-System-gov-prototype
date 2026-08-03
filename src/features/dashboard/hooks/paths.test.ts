@@ -23,6 +23,7 @@ const HOOK_PATHS = {
   patients: '/api/patients',
   visitAttachments: '/api/visits',
   attachments: '/api/attachments',
+  audit: '/api/audit',
 } as const;
 
 function readSource(feature: string, fileName: string): string {
@@ -220,6 +221,18 @@ describe('api path spot-check', () => {
         HOOK_PATHS.insuranceEligibility,
       );
     }
+  });
+
+  it('audit hooks match the api client', () => {
+    expectPathInHook('admin', 'hooks/use-audit-logs.ts', HOOK_PATHS.audit);
+    expectPathInApi('audit-logs', 'get-audit-logs.ts', HOOK_PATHS.audit);
+    expectPathInApi('audit-logs', 'get-audit-log.ts', HOOK_PATHS.audit);
+    expectPathInApi(
+      'audit-logs',
+      'get-audit-dashboard.ts',
+      '/api/audit/dashboard',
+    );
+    expectPathInApi('audit-logs', 'verify-audit-chain.ts', '/api/audit/verify');
   });
 
   it('insurance-verification hooks match the api client', () => {

@@ -1,0 +1,157 @@
+{
+  "pageTitles": {
+    "admin": "لوحة تحكم المشرف",
+    "audit": "سجل التدقيق"
+  },
+  "common": {
+    "loading": "جارٍ التحميل",
+    "retry": "إعادة المحاولة",
+    "errors": {
+      "loadFailed": "حدث خطأ أثناء تحميل هذه البيانات."
+    }
+  },
+  "dashboard": {
+    "title": "لوحة تدقيق النظام",
+    "subtitle": "نظرة عامة على نشاط النظام وسلامة سجل التدقيق.",
+    "totalRecords": "إجمالي السجلات",
+    "successful": "ناجحة",
+    "failed": "فاشلة",
+    "critical": "حرجة",
+    "actionsToday": "الإجراءات اليوم",
+    "averageExecutionTime": "متوسط زمن التنفيذ",
+    "lastAuditTimestamp": "آخر حدث تدقيق",
+    "noData": "لا توجد بيانات للوحة التحكم.",
+    "topActiveUsers": "المستخدمون الأكثر نشاطًا",
+    "topAccessedPatients": "المرضى الأكثر وصولًا",
+    "accessCount": "عدد مرات الوصول",
+    "mostCommonActions": "الإجراءات الأكثر شيوعًا",
+    "verify": "التحقق من السلسلة",
+    "verifyAction": "تشغيل التحقق",
+    "verifying": "جارٍ التحقق…",
+    "verifiedValid": "سلسلة التدقيق سليمة.",
+    "verifiedInvalid": "سلسلة التدقيق مكسورة.",
+    "brokenRecord": "السجل المكسور",
+    "brokenTimestamp": "الطابع الزمني المكسور",
+    "recordsChecked": "السجلات التي تم فحصها",
+    "verificationDuration": "مدة التحقق"
+  },
+  "audit": {
+    "title": "سجل التدقيق",
+    "subtitle": "ابحث وراجع كل إجراء تم تدقيقه.",
+    "columns": {
+      "timestamp": "الوقت",
+      "user": "المستخدم",
+      "role": "الدور",
+      "action": "الإجراء",
+      "category": "الفئة",
+      "success": "النجاح",
+      "riskLevel": "مستوى الخطورة",
+      "statusCode": "رمز الحالة",
+      "executionTime": "زمن التنفيذ",
+      "actions": "إجراءات"
+    },
+    "filters": {
+      "all": "الكل",
+      "category": "الفئة",
+      "success": "النجاح",
+      "riskLevel": "مستوى الخطورة",
+      "action": "الإجراء",
+      "userId": "معرف المستخدم",
+      "patientId": "معرف المريض",
+      "visitId": "معرف الزيارة",
+      "startDate": "تاريخ البداية",
+      "endDate": "تاريخ النهاية",
+      "clear": "مسح الفلاتر"
+    },
+    "sort": {
+      "sortBy": "الترتيب حسب",
+      "ascending": "تصاعدي",
+      "descending": "تنازلي"
+    },
+    "pagination": {
+      "prev": "السابق",
+      "next": "التالي",
+      "pageInfo": "الصفحة {current} من {total}",
+      "totalRecords": "الإجمالي: {count}"
+    },
+    "detail": {
+      "title": "سجل التدقيق",
+      "overview": "نظرة عامة",
+      "requestInfo": "معلومات الطلب",
+      "hashes": "التجزئات",
+      "previousHash": "التجزئة السابقة",
+      "currentHash": "التجزئة الحالية",
+      "oldValues": "القيم القديمة",
+      "newValues": "القيم الجديدة",
+      "additionalData": "بيانات إضافية",
+      "chain": "السلسلة",
+      "previousRecord": "السجل السابق",
+      "nextRecord": "السجل التالي",
+      "description": "الوصف",
+      "resourceType": "نوع المورد",
+      "resourceId": "معرف المورد",
+      "requestPath": "مسار الطلب",
+      "httpMethod": "طريقة HTTP",
+      "correlationId": "معرف الارتباط",
+      "ipAddress": "عنوان IP",
+      "userAgent": "وكيل المستخدم",
+      "browser": "المتصفح",
+      "operatingSystem": "نظام التشغيل",
+      "deviceType": "نوع الجهاز",
+      "platform": "المنصة",
+      "sessionId": "معرف الجلسة"
+    },
+    "empty": {
+      "title": "لا توجد سجلات تدقيق",
+      "description": "جرّب تعديل الفلاتر لعرض نتائج أكثر."
+    },
+    "viewDetails": "عرض التفاصيل",
+    "successYes": "نعم",
+    "successNo": "لا"
+  },
+  "statuses": {
+    "category": {
+      "authentication": "المصادقة",
+      "patient": "المريض",
+      "visit": "الزيارة",
+      "medication": "الدواء",
+      "attachment": "المرفق",
+      "assignment": "الإسناد",
+      "administration": "الإدارة",
+      "insurance": "التأمين"
+    },
+    "riskLevel": {
+      "information": "معلومات",
+      "low": "منخفض",
+      "medium": "متوسط",
+      "high": "مرتفع",
+      "critical": "حرج"
+    },
+    "failureReason": {
+      "invalidCredentials": "بيانات اعتماد غير صحيحة",
+      "unauthorized": "غير مصرح",
+      "forbidden": "ممنوع",
+      "validationFailed": "فشل التحقق",
+      "patientNotAssigned": "المريض غير مُسند",
+      "patientNotFound": "المريض غير موجود",
+      "visitNotFound": "الزيارة غير موجودة",
+      "attachmentNotFound": "المرفق غير موجود",
+      "businessRuleViolation": "مخالفة قاعدة العمل",
+      "unknown": "غير معروف"
+    },
+    "deviceType": {
+      "desktop": "حاسوب",
+      "tablet": "جهاز لوحي",
+      "mobile": "هاتف",
+      "unknown": "غير معروف"
+    },
+    "platform": {
+      "windows": "ويندوز",
+      "linux": "لينكس",
+      "mac": "ماك",
+      "android": "أندرويد",
+      "ios": "آي أو إس",
+      "unknown": "غير معروف"
+    }
+  }
+}

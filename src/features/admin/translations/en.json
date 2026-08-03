@@ -1,0 +1,157 @@
+{
+  "pageTitles": {
+    "admin": "Admin Console",
+    "audit": "Audit Logs"
+  },
+  "common": {
+    "loading": "Loading",
+    "retry": "Retry",
+    "errors": {
+      "loadFailed": "Something went wrong while loading this data."
+    }
+  },
+  "dashboard": {
+    "title": "Audit Dashboard",
+    "subtitle": "Overview of system activity and audit integrity.",
+    "totalRecords": "Total Records",
+    "successful": "Successful",
+    "failed": "Failed",
+    "critical": "Critical",
+    "actionsToday": "Actions Today",
+    "averageExecutionTime": "Avg. Execution Time",
+    "lastAuditTimestamp": "Last Audit Event",
+    "noData": "No dashboard data available.",
+    "topActiveUsers": "Top Active Users",
+    "topAccessedPatients": "Top Accessed Patients",
+    "accessCount": "Access Count",
+    "mostCommonActions": "Most Common Actions",
+    "verify": "Verify Chain",
+    "verifyAction": "Run verification",
+    "verifying": "Verifying…",
+    "verifiedValid": "The audit chain is valid.",
+    "verifiedInvalid": "The audit chain is broken.",
+    "brokenRecord": "Broken Record",
+    "brokenTimestamp": "Broken Timestamp",
+    "recordsChecked": "Records Checked",
+    "verificationDuration": "Duration"
+  },
+  "audit": {
+    "title": "Audit Logs",
+    "subtitle": "Search and inspect every audited action.",
+    "columns": {
+      "timestamp": "Timestamp",
+      "user": "User",
+      "role": "Role",
+      "action": "Action",
+      "category": "Category",
+      "success": "Success",
+      "riskLevel": "Risk Level",
+      "statusCode": "Status",
+      "executionTime": "Execution Time",
+      "actions": "Actions"
+    },
+    "filters": {
+      "all": "All",
+      "category": "Category",
+      "success": "Success",
+      "riskLevel": "Risk Level",
+      "action": "Action",
+      "userId": "User ID",
+      "patientId": "Patient ID",
+      "visitId": "Visit ID",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "clear": "Clear Filters"
+    },
+    "sort": {
+      "sortBy": "Sort by",
+      "ascending": "Ascending",
+      "descending": "Descending"
+    },
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {current} of {total}",
+      "totalRecords": "Total: {count}"
+    },
+    "detail": {
+      "title": "Audit Record",
+      "overview": "Overview",
+      "requestInfo": "Request Information",
+      "hashes": "Hashes",
+      "previousHash": "Previous Hash",
+      "currentHash": "Current Hash",
+      "oldValues": "Old Values",
+      "newValues": "New Values",
+      "additionalData": "Additional Data",
+      "chain": "Chain",
+      "previousRecord": "Previous Record",
+      "nextRecord": "Next Record",
+      "description": "Description",
+      "resourceType": "Resource Type",
+      "resourceId": "Resource ID",
+      "requestPath": "Request Path",
+      "httpMethod": "HTTP Method",
+      "correlationId": "Correlation ID",
+      "ipAddress": "IP Address",
+      "userAgent": "User Agent",
+      "browser": "Browser",
+      "operatingSystem": "Operating System",
+      "deviceType": "Device Type",
+      "platform": "Platform",
+      "sessionId": "Session ID"
+    },
+    "empty": {
+      "title": "No audit records found",
+      "description": "Try adjusting the filters to see more results."
+    },
+    "viewDetails": "View Details",
+    "successYes": "Yes",
+    "successNo": "No"
+  },
+  "statuses": {
+    "category": {
+      "authentication": "Authentication",
+      "patient": "Patient",
+      "visit": "Visit",
+      "medication": "Medication",
+      "attachment": "Attachment",
+      "assignment": "Assignment",
+      "administration": "Administration",
+      "insurance": "Insurance"
+    },
+    "riskLevel": {
+      "information": "Information",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "failureReason": {
+      "invalidCredentials": "Invalid credentials",
+      "unauthorized": "Unauthorized",
+      "forbidden": "Forbidden",
+      "validationFailed": "Validation failed",
+      "patientNotAssigned": "Patient not assigned",
+      "patientNotFound": "Patient not found",
+      "visitNotFound": "Visit not found",
+      "attachmentNotFound": "Attachment not found",
+      "businessRuleViolation": "Business rule violation",
+      "unknown": "Unknown"
+    },
+    "deviceType": {
+      "desktop": "Desktop",
+      "tablet": "Tablet",
+      "mobile": "Mobile",
+      "unknown": "Unknown"
+    },
+    "platform": {
+      "windows": "Windows",
+      "linux": "Linux",
+      "mac": "Mac",
+      "android": "Android",
+      "ios": "iOS",
+      "unknown": "Unknown"
+    }
+  }
+}
