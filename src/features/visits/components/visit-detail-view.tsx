@@ -106,6 +106,7 @@ export function VisitDetailView({ visitId }: { visitId: string }) {
         toast.success(t('visitDetail.statusUpdated'));
       },
       onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         toast.error(
           error instanceof Error
             ? error.message
@@ -122,6 +123,7 @@ export function VisitDetailView({ visitId }: { visitId: string }) {
         toast.success(t('visitDetail.statusUpdated'));
       },
       onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         toast.error(
           error instanceof Error
             ? error.message
@@ -533,6 +535,7 @@ function AddMedicationDialog({
         form.reset();
       },
       onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         toast.error(
           error instanceof Error
             ? error.message

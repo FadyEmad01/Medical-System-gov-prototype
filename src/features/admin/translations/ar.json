@@ -6,12 +6,12 @@
   "common": {
     "loading": "جارٍ التحميل",
     "retry": "إعادة المحاولة",
+    "unknown": "غير معروف",
     "errors": {
       "loadFailed": "حدث خطأ أثناء تحميل هذه البيانات."
     }
   },
   "dashboard": {
-    "title": "لوحة تدقيق النظام",
     "subtitle": "نظرة عامة على نشاط النظام وسلامة سجل التدقيق.",
     "totalRecords": "إجمالي السجلات",
     "successful": "ناجحة",
@@ -105,7 +105,6 @@
       "title": "لا توجد سجلات تدقيق",
       "description": "جرّب تعديل الفلاتر لعرض نتائج أكثر."
     },
-    "viewDetails": "عرض التفاصيل",
     "successYes": "نعم",
     "successNo": "لا"
   },
@@ -126,18 +125,6 @@
       "medium": "متوسط",
       "high": "مرتفع",
       "critical": "حرج"
-    },
-    "failureReason": {
-      "invalidCredentials": "بيانات اعتماد غير صحيحة",
-      "unauthorized": "غير مصرح",
-      "forbidden": "ممنوع",
-      "validationFailed": "فشل التحقق",
-      "patientNotAssigned": "المريض غير مُسند",
-      "patientNotFound": "المريض غير موجود",
-      "visitNotFound": "الزيارة غير موجودة",
-      "attachmentNotFound": "المرفق غير موجود",
-      "businessRuleViolation": "مخالفة قاعدة العمل",
-      "unknown": "غير معروف"
     },
     "deviceType": {
       "desktop": "حاسوب",

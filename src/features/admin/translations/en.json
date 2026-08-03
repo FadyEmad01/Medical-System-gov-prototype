@@ -6,12 +6,12 @@
   "common": {
     "loading": "Loading",
     "retry": "Retry",
+    "unknown": "Unknown",
     "errors": {
       "loadFailed": "Something went wrong while loading this data."
     }
   },
   "dashboard": {
-    "title": "Audit Dashboard",
     "subtitle": "Overview of system activity and audit integrity.",
     "totalRecords": "Total Records",
     "successful": "Successful",
@@ -105,7 +105,6 @@
       "title": "No audit records found",
       "description": "Try adjusting the filters to see more results."
     },
-    "viewDetails": "View Details",
     "successYes": "Yes",
     "successNo": "No"
   },
@@ -126,18 +125,6 @@
       "medium": "Medium",
       "high": "High",
       "critical": "Critical"
-    },
-    "failureReason": {
-      "invalidCredentials": "Invalid credentials",
-      "unauthorized": "Unauthorized",
-      "forbidden": "Forbidden",
-      "validationFailed": "Validation failed",
-      "patientNotAssigned": "Patient not assigned",
-      "patientNotFound": "Patient not found",
-      "visitNotFound": "Visit not found",
-      "attachmentNotFound": "Attachment not found",
-      "businessRuleViolation": "Business rule violation",
-      "unknown": "Unknown"
     },
     "deviceType": {
       "desktop": "Desktop",

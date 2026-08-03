@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -92,6 +92,15 @@ export function AuditLogsView() {
   const [endDate, setEndDate] = useState('');
   const [selectedAuditId, setSelectedAuditId] = useState<string | null>(null);
 
+  // Text/date filters settle through a short debounce so keystrokes don't
+  // refetch on every change; Select filters apply immediately via applyFilter.
+  const debouncedAction = useDebouncedValue(action, 300);
+  const debouncedUserId = useDebouncedValue(userId, 300);
+  const debouncedPatientId = useDebouncedValue(patientId, 300);
+  const debouncedVisitId = useDebouncedValue(visitId, 300);
+  const debouncedStartDate = useDebouncedValue(startDate, 300);
+  const debouncedEndDate = useDebouncedValue(endDate, 300);
+
   const query: AuditLogQuery = {
     page,
     pageSize: PAGE_SIZE,
@@ -100,12 +109,13 @@ export function AuditLogsView() {
     category: category === 'all' ? undefined : (category as AuditCategory),
     success: success === 'all' ? undefined : success === 'true',
     riskLevel: riskLevel === 'all' ? undefined : (riskLevel as AuditRiskLevel),
-    action: action.trim() === '' ? undefined : action.trim(),
-    userId: parseOptionalInt(userId),
-    patientId: parseOptionalInt(patientId),
-    visitId: visitId.trim() === '' ? undefined : visitId.trim(),
-    startDate: startDate === '' ? undefined : startDate,
-    endDate: endDate === '' ? undefined : endDate,
+    action: debouncedAction.trim() === '' ? undefined : debouncedAction.trim(),
+    userId: parseOptionalInt(debouncedUserId),
+    patientId: parseOptionalInt(debouncedPatientId),
+    visitId:
+      debouncedVisitId.trim() === '' ? undefined : debouncedVisitId.trim(),
+    startDate: debouncedStartDate === '' ? undefined : debouncedStartDate,
+    endDate: debouncedEndDate === '' ? undefined : debouncedEndDate,
   };
 
   const logsQuery = useAuditLogs(query);
@@ -119,6 +129,25 @@ export function AuditLogsView() {
     setter(value);
     setPage(1);
   };
+
+  // Debounced filters restart pagination only when the settled value actually
+  // changes (not on every keystroke), matching applyFilter's behaviour. The
+  // previous-value ref skips the initial mount, where page is already 1.
+  const settledFilterSignature = [
+    debouncedAction,
+    debouncedUserId,
+    debouncedPatientId,
+    debouncedVisitId,
+    debouncedStartDate,
+    debouncedEndDate,
+  ].join('\u0000');
+  const previousFilterSignatureRef = useRef(settledFilterSignature);
+
+  useEffect(() => {
+    if (previousFilterSignatureRef.current === settledFilterSignature) return;
+    previousFilterSignatureRef.current = settledFilterSignature;
+    setPage(1);
+  }, [settledFilterSignature]);
 
   const toggleSortDescending = () => {
     setSortDescending((prev) => !prev);
@@ -232,9 +261,7 @@ export function AuditLogsView() {
               <FieldContent>
                 <Input
                   value={action}
-                  onChange={(event) =>
-                    applyFilter(setAction, event.target.value)
-                  }
+                  onChange={(event) => setAction(event.target.value)}
                 />
               </FieldContent>
             </Field>
@@ -245,9 +272,7 @@ export function AuditLogsView() {
                 <Input
                   inputMode="numeric"
                   value={userId}
-                  onChange={(event) =>
-                    applyFilter(setUserId, event.target.value)
-                  }
+                  onChange={(event) => setUserId(event.target.value)}
                 />
               </FieldContent>
             </Field>
@@ -258,9 +283,7 @@ export function AuditLogsView() {
                 <Input
                   inputMode="numeric"
                   value={patientId}
-                  onChange={(event) =>
-                    applyFilter(setPatientId, event.target.value)
-                  }
+                  onChange={(event) => setPatientId(event.target.value)}
                 />
               </FieldContent>
             </Field>
@@ -270,9 +293,7 @@ export function AuditLogsView() {
               <FieldContent>
                 <Input
                   value={visitId}
-                  onChange={(event) =>
-                    applyFilter(setVisitId, event.target.value)
-                  }
+                  onChange={(event) => setVisitId(event.target.value)}
                 />
               </FieldContent>
             </Field>
@@ -283,9 +304,7 @@ export function AuditLogsView() {
                 <Input
                   type="date"
                   value={startDate}
-                  onChange={(event) =>
-                    applyFilter(setStartDate, event.target.value)
-                  }
+                  onChange={(event) => setStartDate(event.target.value)}
                 />
               </FieldContent>
             </Field>
@@ -296,9 +315,7 @@ export function AuditLogsView() {
                 <Input
                   type="date"
                   value={endDate}
-                  onChange={(event) =>
-                    applyFilter(setEndDate, event.target.value)
-                  }
+                  onChange={(event) => setEndDate(event.target.value)}
                 />
               </FieldContent>
             </Field>
@@ -370,7 +387,13 @@ export function AuditLogsView() {
                     <TableRow
                       key={item.auditId}
                       className="cursor-pointer"
+                      tabIndex={0}
                       onClick={() => setSelectedAuditId(item.auditId)}
+                      onKeyDown={(event) => {
+                        if (event.key !== 'Enter' && event.key !== ' ') return;
+                        event.preventDefault();
+                        setSelectedAuditId(item.auditId);
+                      }}
                     >
                       <TableCell>
                         {formatDateTime(item.timestampUtc, locale)}
@@ -389,11 +412,15 @@ export function AuditLogsView() {
                           {t(statusKey('riskLevel', item.riskLevel))}
                         </Badge>
                       </TableCell>
-                      <TableCell>{item.action ?? '—'}</TableCell>
+                      <TableCell>
+                        {item.action ?? t('common.unknown')}
+                      </TableCell>
                       <TableCell>
                         {item.patientId === null ? '—' : String(item.patientId)}
                       </TableCell>
-                      <TableCell>{item.visitId ?? '—'}</TableCell>
+                      <TableCell>
+                        {item.visitId ?? t('common.unknown')}
+                      </TableCell>
                       <TableCell>
                         <Badge
                           variant={item.success ? 'secondary' : 'destructive'}
@@ -467,4 +494,15 @@ function parseOptionalInt(value: string): number | undefined {
   if (value.trim() === '') return undefined;
   const parsed = Number(value);
   return Number.isNaN(parsed) ? undefined : parsed;
+}
+
+function useDebouncedValue<T>(value: T, delayMs: number): T {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setDebouncedValue(value), delayMs);
+    return () => clearTimeout(timeoutId);
+  }, [value, delayMs]);
+
+  return debouncedValue;
 }

@@ -35,6 +35,7 @@ import {
   ErrorState,
   LoadingRows,
 } from '@/features/app-shell/components/states';
+import { isBffError } from '@/features/app-shell/hooks/use-bff-error';
 import type {
   AuditActionCount,
   AuditTopPatient,
@@ -264,6 +265,7 @@ function VerifyChainCard() {
   const handleVerify = () => {
     verifyMutation.mutate(undefined, {
       onError: (error) => {
+        if (isBffError(error) && error.status === 401) return;
         toast.error(
           error instanceof Error
             ? error.message
