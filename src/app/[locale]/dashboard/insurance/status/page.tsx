@@ -12,7 +12,7 @@ export default async function InsuranceStatusPage({ params }: Props) {
   const t = await getTranslations('dashboard');
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 px-4 lg:gap-2 lg:px-6 pt-5">
       <PageHeader
         title={t('pageTitles.insuranceStatus')}
         description={t('pageSubtitles.insuranceStatus')}
