@@ -77,7 +77,7 @@ The BFF route (`src/app/api/bff/[...path]/route.ts`) buffers request bodies (JSO
 - **Delete Test:** every business domain lives in `src/features/[feature]`. Deleting a feature folder must leave the app compiling.
 - **Rule of Two:** code only moves to shared `src/components/` / `src/lib/` when used by at least two distinct features.
 - **No barrel files:** import from the source file path (`@/features/.../components/foo`), never `index.ts` re-exports.
-- **Named React imports:** `import { useState } from 'react'`, never `React.useState` in authored feature/lib code. Vendored shadcn code in `src/components/ui/*` (biome-ignored) is exempt — e.g. `src/components/ui/sidebar.tsx` and `src/hooks/use-mobile.ts` legitimately use `React.useState` / `React.useEffect`.
+- **Named React imports:** `import { useState } from 'react'`, never `React.useState` in authored feature/lib code. The vendored shadcn code (`src/components/ui/*`, biome-ignored) and `src/hooks/use-mobile.ts` legitimately use `React.useState` / `React.useEffect`; the rule applies to all other authored code.
 - **Thin app routes:** `page.tsx` files only handle params, metadata, and delegating to a feature component — no business logic.
 - **Per-feature translations:** `src/features/<f>/translations/{en,ar}.json`, registered in `src/i18n/request.ts` (namespaces: `auth`, `app-shell`, `dashboard`, `doctor`, `admin`).
 - **`API_URL` is server-only** — never exposed to the client (no `NEXT_PUBLIC_*`).
@@ -164,7 +164,7 @@ npm run dev
 
 ## Testing
 
-Vitest 4 — **217 tests across 70 files passing** (verified 2026-08-04). The suite covers the BFF route proxy behavior, the API client (`lib/http.ts`, `lib/bff.ts`), auth server actions, dashboard, app-shell, admin, and insurance hooks.
+Vitest 4 — **218 tests across 70 files passing** (verified 2026-08-04). The suite covers the BFF route proxy behavior, the API client (`lib/http.ts`, `lib/bff.ts`), auth server actions, dashboard, app-shell, admin, and insurance hooks.
 
 - Default test environment is `happy-dom` (config in `vitest.config.ts`).
 - Server-only code (BFF route, `proxy-utils`) uses `// @vitest-environment node` with mocked `fetch`.
