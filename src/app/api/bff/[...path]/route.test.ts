@@ -199,6 +199,33 @@ describe('BFF proxy route', () => {
     expect(res.status).toBe(200);
   });
 
+  it('returns 502 when buffering a multipart body fails', async () => {
+    const fetchMock = stubUpstreamFetch();
+    const req = makeRequest({
+      method: 'POST',
+      url: 'http://localhost/api/bff/api/insurance/documents/upload',
+      headers: { 'Content-Type': 'multipart/form-data; boundary=----test' },
+      body: 'placeholder',
+    });
+    vi.spyOn(req, 'arrayBuffer').mockRejectedValue(
+      new Error('client aborted upload'),
+    );
+
+    const res = await POST(req, {
+      params: Promise.resolve({
+        path: ['api', 'insurance', 'documents', 'upload'],
+      }),
+    });
+
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(res.status).toBe(502);
+    expect(await res.json()).toEqual({
+      title: 'Bad Gateway',
+      detail: 'Upstream request failed',
+      status: 502,
+    });
+  });
+
   it('sets Bearer authorization and strips forbidden headers upstream', async () => {
     const fetchMock = stubUpstreamFetch();
 
