@@ -62,6 +62,11 @@ export default async function LocaleLayout({ children, params }: Props) {
             defaultTheme="light"
             enableSystem
             disableTransitionOnChange
+            scriptProps={
+              typeof window === 'undefined'
+                ? undefined
+                : { type: 'application/json' }
+            }
           >
             <NextIntlClientProvider messages={messages}>
               <AuthProvider>{children}</AuthProvider>
