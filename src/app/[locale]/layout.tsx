@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from '@/components/theme-provider';
 import { DirectionProvider } from '@/components/ui/direction';
 import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/features/auth/auth-context';
@@ -62,11 +62,6 @@ export default async function LocaleLayout({ children, params }: Props) {
             defaultTheme="light"
             enableSystem
             disableTransitionOnChange
-            scriptProps={
-              typeof window === 'undefined'
-                ? undefined
-                : { type: 'application/json' }
-            }
           >
             <NextIntlClientProvider messages={messages}>
               <AuthProvider>{children}</AuthProvider>
