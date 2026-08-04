@@ -371,21 +371,29 @@ function ApplicationDetailDialog({
               />
               <DetailLine
                 label={t('insuranceStatus.eligibilityStatus')}
-                value={t(
-                  statusKey(
-                    'eligibility',
-                    application.eligibilityStatusSnapshot,
-                  ),
-                )}
+                value={
+                  application.eligibilityStatusSnapshot
+                    ? t(
+                        statusKey(
+                          'eligibility',
+                          application.eligibilityStatusSnapshot,
+                        ),
+                      )
+                    : t('common.unknown')
+                }
               />
               <DetailLine
                 label={t('insuranceStatus.verificationStatus')}
-                value={t(
-                  statusKey(
-                    'verification',
-                    application.verificationStatusSnapshot,
-                  ),
-                )}
+                value={
+                  application.verificationStatusSnapshot
+                    ? t(
+                        statusKey(
+                          'verification',
+                          application.verificationStatusSnapshot,
+                        ),
+                      )
+                    : t('common.unknown')
+                }
               />
               {application.decisionReason ? (
                 <DetailLine

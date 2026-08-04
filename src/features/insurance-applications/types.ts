@@ -16,8 +16,10 @@ export interface ApplicationResponse {
   reviewedBy: number | null;
   reviewedAt: string | null;
   decisionReason: string | null;
-  eligibilityStatusSnapshot: EligibilityStatus;
-  verificationStatusSnapshot: VerificationStatus;
+  // Backend returns null when eligibility/verification have not run for the
+  // application.
+  eligibilityStatusSnapshot: EligibilityStatus | null;
+  verificationStatusSnapshot: VerificationStatus | null;
   documentCount: number;
   dependentCount: number;
   createdAt: string;

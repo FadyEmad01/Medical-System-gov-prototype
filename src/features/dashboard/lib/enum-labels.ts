@@ -1,6 +1,7 @@
 // Turns a PascalCase enum value into the lowercase translation-key segment:
-// 'UnderReview' → 'underReview'. Unknown or missing values fall back to the
-// raw value so next-intl returns the key itself instead of crashing.
+// 'UnderReview' → 'underReview'. Unknown values fall back to the raw value so
+// next-intl returns the key itself; null/undefined/empty values fall back to an
+// empty segment — callers must guard (render a fallback like 'common.unknown').
 export function toEnumKey(value: string | null | undefined): string {
   if (!value) return '';
   return value.charAt(0).toLowerCase() + value.slice(1);
