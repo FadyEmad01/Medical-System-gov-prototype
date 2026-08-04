@@ -134,16 +134,15 @@ src/
 
 ## Environment Setup
 
-There is no committed `.env.example` — create `.env` manually with:
+A committed `.env.example` is provided — copy it to `.env` and adjust values:
 
 ```bash
-API_URL=http://stg-api.runasp.net   # Backend base URL — server-only, required
-BFF_TIMEOUT_MS=10000                # BFF upstream timeout in ms (1–60000, default 10000)
+cp .env.example .env
 ```
 
 ```bash
 npm install
-# create .env as above
+# cp .env.example .env
 npm run dev
 # → http://localhost:3000 (redirects to /ar or /en)
 ```
