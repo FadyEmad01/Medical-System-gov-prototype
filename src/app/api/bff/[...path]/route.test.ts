@@ -187,6 +187,7 @@ describe('BFF proxy route', () => {
     );
 
     const [upstreamUrl, init] = fetchMock.mock.calls[0];
+    expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(upstreamUrl).toBe(
       `${process.env.API_URL}/api/insurance/documents/upload`,
     );

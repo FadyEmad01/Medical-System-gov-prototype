@@ -101,15 +101,16 @@ async function proxyRequest(
   // and stream bodies are sent chunked without Content-Length, which
   // IIS-backed hosts reject. Materializing the body lets undici set
   // Content-Length — the same pattern as req.text() for JSON above.
+  // Materializing happens inside the try so body-read failures (e.g. a
+  // mid-upload client abort) also surface as a 502 via the same catch.
   let body: BodyInit | null | undefined;
-  if (req.body !== null) {
-    const contentType = req.headers.get('Content-Type');
-    body = isJsonContentType(contentType)
-      ? await req.text()
-      : await req.arrayBuffer();
-  }
-
   try {
+    if (req.body !== null) {
+      const contentType = req.headers.get('Content-Type');
+      body = isJsonContentType(contentType)
+        ? await req.text()
+        : await req.arrayBuffer();
+    }
     const upstreamResponse = await fetch(upstreamUrl, {
       method: req.method,
       headers,
