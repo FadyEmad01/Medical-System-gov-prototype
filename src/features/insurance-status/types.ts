@@ -14,9 +14,10 @@ export interface InsuranceStatusResponse {
   patientId: number;
   currentApplicationNumber: string | null;
   currentApplicationId: string | null;
-  currentApplicationStatus: ApplicationStatus;
+  // Backend returns null when the patient has no application yet.
+  currentApplicationStatus: ApplicationStatus | null;
   timeline: TimelineStage[] | null;
-  eligibilityStatus: EligibilityStatus;
-  verificationStatus: VerificationStatus;
+  eligibilityStatus: EligibilityStatus | null;
+  verificationStatus: VerificationStatus | null;
   documentCount: number;
 }

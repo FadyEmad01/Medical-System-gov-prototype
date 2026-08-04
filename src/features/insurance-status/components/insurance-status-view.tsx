@@ -85,17 +85,29 @@ export function InsuranceStatusView() {
         />
         <StatusMetric
           label={t('insuranceStatus.applicationStatus')}
-          value={t(statusKey('application', status.currentApplicationStatus))}
+          value={
+            status.currentApplicationStatus
+              ? t(statusKey('application', status.currentApplicationStatus))
+              : t('common.unknown')
+          }
           badge
         />
         <StatusMetric
           label={t('insuranceStatus.eligibilityStatus')}
-          value={t(statusKey('eligibility', status.eligibilityStatus))}
+          value={
+            status.eligibilityStatus
+              ? t(statusKey('eligibility', status.eligibilityStatus))
+              : t('common.unknown')
+          }
           badge
         />
         <StatusMetric
           label={t('insuranceStatus.verificationStatus')}
-          value={t(statusKey('verification', status.verificationStatus))}
+          value={
+            status.verificationStatus
+              ? t(statusKey('verification', status.verificationStatus))
+              : t('common.unknown')
+          }
           badge
         />
       </div>

@@ -53,7 +53,9 @@ export function usePatientCards(patientId: number | undefined) {
 }
 
 // A 404 means the patient has no current card — a state (rendered as an empty
-// section), not an error.
+// section), not an error. TanStack Query v5 treats an undefined queryFn return
+// as an error, so 404 maps to null (valid data) — the UI renders an empty
+// section.
 export function useCurrentCard(patientId: number | undefined) {
   const query = useQuery({
     queryKey: cardKeys.current(patientId ?? 0),
@@ -64,7 +66,7 @@ export function useCurrentCard(patientId: number | undefined) {
         );
       } catch (error) {
         if (error instanceof BffError && error.status === 404) {
-          return undefined;
+          return null;
         }
         throw error;
       }
