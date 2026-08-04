@@ -10,7 +10,6 @@ import {
 import { useTranslations } from 'next-intl';
 import { type CSSProperties, Fragment, type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   Breadcrumb,
@@ -48,6 +47,7 @@ import {
 import { useAuth } from '@/features/auth/hooks/use-auth';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import type { UserRole } from '@/lib/api/enums';
+import { LanguageSwitcher } from './language-switcher';
 import { getNavItems, getSectionHome } from './nav-items';
 
 const SEGMENT_LABEL_KEYS: Record<string, string> = {
@@ -241,13 +241,6 @@ function AppShellLayout({ allowedRole, children }: AppShellProps) {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    asChild
-                    onSelect={(event) => event.preventDefault()}
-                  >
-                    <ThemeToggle label={t('userMenu.theme')} />
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
                     variant="destructive"
                     disabled={isLoggingOut}
                     onSelect={handleLogout}
@@ -303,7 +296,7 @@ function AppShellLayout({ allowedRole, children }: AppShellProps) {
               </BreadcrumbList>
             </Breadcrumb>
             <div className="ms-auto flex items-center gap-2">
-              <ThemeToggle label={t('userMenu.theme')} />
+              <LanguageSwitcher />
             </div>
           </div>
         </header>
